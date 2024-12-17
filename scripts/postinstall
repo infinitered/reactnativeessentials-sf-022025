@@ -6,4 +6,4 @@ react-native-asset
 bundle
 
 # Install pods
-(cd ios && bundle exec pod repo update &&  bundle exec pod install)
+(cd ios && bundle exec pod repo update && bundle exec pod install)

@@ -7,7 +7,7 @@ software=("ruby" "node" "yarn" "java" "xcode-select" "adb")
 # Version numbers (inclusive)
 ruby=("3.0.0" "3.3.0")
 node=("18.0.0")
-yarn=("1.22.10" "1.22.21")
+yarn=("1.22.10" "1.22.22")
 java=("17.0.0")
 
 success() {
