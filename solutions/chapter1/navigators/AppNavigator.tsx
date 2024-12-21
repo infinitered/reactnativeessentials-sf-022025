@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React from 'react'
 
 /**

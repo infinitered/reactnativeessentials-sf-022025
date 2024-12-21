@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useCallback, useEffect } from 'react'
-import { FlatList, ViewStyle } from 'react-native'
+import { FlatList } from 'react-native'
+import type { ViewStyle } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { api } from '../../../shared/services/api'

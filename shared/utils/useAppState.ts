@@ -3,7 +3,8 @@
  * Source: https://github.com/Reykjavik151/react-native-hookbox
  */
 import { useEffect, useState } from 'react'
-import { AppState, type AppStateStatus } from 'react-native'
+import type { AppStateStatus } from 'react-native'
+import { AppState } from 'react-native'
 
 /**
  * Get the current app state

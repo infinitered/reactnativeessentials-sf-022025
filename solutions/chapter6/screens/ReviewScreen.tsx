@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from 'react'
-import { TextInput, TextStyle, View, ViewStyle } from 'react-native'
+import { TextInput, View } from 'react-native'
+import type { TextStyle, ViewStyle } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { colors, fonts, sizes } from '../../../shared/theme'
 import { Button } from '../components/Button'
 import { Text } from '../components/Text'
-import { ScreenProps } from '../navigators/AppNavigator'
+import type { ScreenProps } from '../navigators/AppNavigator'
 import { useGlobalState } from '../services/state'
 
 export const ReviewScreen = ({ navigation, route }: ScreenProps<'Review'>) => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ViewStyle } from 'react-native'
+import type { ViewStyle } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import {
   initialWindowMetrics,

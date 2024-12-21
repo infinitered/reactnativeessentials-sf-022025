@@ -1,4 +1,4 @@
-import { PostGamesParams } from '../../shared/services/types'
+import type { PostGamesParams } from '../../shared/services/types'
 import rawData from '../mocks/games.json'
 import { camelCaseKeys } from './camelCaseKeys'
 

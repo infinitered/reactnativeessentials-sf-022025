@@ -1,24 +1,27 @@
 import notifee, {
-  AndroidChannel,
   AndroidImportance,
   AndroidNotificationSetting,
   AuthorizationStatus,
-  EventDetail,
   EventType,
+  TriggerType,
+} from '@notifee/react-native'
+import type {
+  AndroidChannel,
+  EventDetail,
   InitialNotification,
   IOSNotificationCategory,
   Notification,
   TimestampTrigger,
-  TriggerType,
 } from '@notifee/react-native'
-import { NavigationHelpers, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
+import type { NavigationHelpers } from '@react-navigation/native'
 import { useEffect } from 'react'
 import { Platform } from 'react-native'
 
-import { Reviews } from '../../../shared/services/types'
+import type { Reviews } from '../../../shared/services/types'
 import { safeParse } from '../../../shared/utils/object'
 import { useAppState } from '../../../shared/utils/useAppState'
-import { AppStackParamList } from '../navigators/AppNavigator'
+import type { AppStackParamList } from '../navigators/AppNavigator'
 import { storage as stateStorage } from './state'
 
 const navigationQueue: { name: string; params?: object | undefined }[] = []
