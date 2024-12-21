@@ -8,10 +8,12 @@ import type {
   ViewStyle,
 } from 'react-native'
 
-import { colors, sizes } from '../../../shared/theme'
+import { sizes } from '../../../shared/theme'
 import { Icon } from './Icon'
 import type { IconProps } from './Icon'
 import { Text } from './Text'
+import { useAppTheme } from '../services/theme'
+import type { ThemedStyle } from '../services/theme'
 
 interface ButtonProps extends Omit<PressableProps, 'children'> {
   /**
@@ -30,21 +32,22 @@ interface ButtonProps extends Omit<PressableProps, 'children'> {
 
 export const Button = (props: ButtonProps) => {
   const { text, icon, style: $faceOverride, ...RestPressableProps } = props
+  const { theme: { colors }, themed } = useAppTheme()
 
   const $reflectionStyle: PressableProps['style'] = state => [
-    $reflection,
-    state.pressed && $reflectionPressed,
+    themed($reflection),
+    state.pressed && themed($reflectionPressed),
   ]
 
   const $faceStyle: PressableProps['style'] = state => [
-    $face,
+    themed($face),
     $faceOverride,
-    state.pressed && $facePressed,
+    state.pressed && themed($facePressed),
   ]
 
   const $textStyle: PressableProps['style'] = state => [
-    $text,
-    state.pressed && $textPressed,
+    themed($text),
+    state.pressed && themed($textPressed),
   ]
 
   const iconColor = (state: PressableStateCallbackType) =>
@@ -71,7 +74,7 @@ const $pressable: ViewStyle = {
   height: 50,
 }
 
-const $reflection: ViewStyle = {
+const $reflection: ThemedStyle<ViewStyle> = ({ colors }) => ({
   position: 'absolute',
   width: '100%',
   height: '100%',
@@ -79,13 +82,13 @@ const $reflection: ViewStyle = {
   right: -6,
   borderRadius: sizes.radius.md,
   backgroundColor: colors.background.transparent,
-}
+})
 
-const $reflectionPressed: ViewStyle = {
+const $reflectionPressed: ThemedStyle<ViewStyle> = ({ colors }) => ({
   backgroundColor: colors.background.reflection,
-}
+})
 
-const $face: ViewStyle = {
+const $face: ThemedStyle<ViewStyle> = ({ colors }) => ({
   flex: 1,
   borderWidth: sizes.border.sm,
   borderRadius: sizes.radius.md,
@@ -96,16 +99,16 @@ const $face: ViewStyle = {
   columnGap: sizes.spacing.xs,
   backgroundColor: colors.background.brand,
   borderColor: colors.border.base,
-}
+})
 
-const $facePressed: ViewStyle = {
+const $facePressed: ThemedStyle<ViewStyle> = ({ colors }) => ({
   backgroundColor: colors.background.accent,
-}
+})
 
-const $text: TextStyle = {
+const $text: ThemedStyle<TextStyle> = ({ colors }) => ({
   color: colors.text.base,
-}
+})
 
-const $textPressed: TextStyle = {
+const $textPressed: ThemedStyle<TextStyle> = ({ colors }) => ({
   color: colors.text.brand,
-}
+})

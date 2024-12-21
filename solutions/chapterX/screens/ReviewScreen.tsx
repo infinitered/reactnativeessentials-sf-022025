@@ -3,13 +3,16 @@ import { TextInput, View } from 'react-native'
 import type { TextStyle, ViewStyle } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { colors, fonts, sizes } from '../../../shared/theme'
+import { fonts, sizes } from '../../../shared/theme'
 import { Button } from '../components/Button'
 import { Text } from '../components/Text'
 import type { ScreenProps } from '../navigators/AppNavigator'
 import { useGlobalState } from '../services/state'
+import { useAppTheme } from '../services/theme'
+import type { ThemedStyle } from '../services/theme'
 
 export const ReviewScreen = ({ navigation, route }: ScreenProps<'Review'>) => {
+  const { theme: { colors }, themed } = useAppTheme()
   const { top: paddingTop } = useSafeAreaInsets()
   const [value, setValue] = useState('')
 
@@ -32,12 +35,12 @@ export const ReviewScreen = ({ navigation, route }: ScreenProps<'Review'>) => {
   }, [backToPrevious, gameId, value, state])
 
   return (
-    <View style={$modal}>
-      <View style={[$container, { paddingTop }]}>
+    <View style={themed($modal)}>
+      <View style={[themed($container), { paddingTop }]}>
         <Text style={$heading} preset="headline2" text="Write a Review" />
-        <View style={$textArea}>
+        <View style={themed($textArea)}>
           <TextInput
-            style={$textInput}
+            style={themed($textInput)}
             placeholder="Type your reivew..."
             multiline
             value={value}
@@ -50,7 +53,7 @@ export const ReviewScreen = ({ navigation, route }: ScreenProps<'Review'>) => {
           <Button
             text="Close"
             icon="x"
-            style={$secondaryButton}
+            style={themed($secondaryButton)}
             onPress={backToPrevious}
           />
         </View>
@@ -59,15 +62,15 @@ export const ReviewScreen = ({ navigation, route }: ScreenProps<'Review'>) => {
   )
 }
 
-const $modal: ViewStyle = {
+const $modal: ThemedStyle<ViewStyle> = ({ colors }) => ({
   flex: 1,
   backgroundColor: colors.manipulators.changeHexAlpha(
     colors.background.brand,
     75,
   ),
-}
+})
 
-const $container: ViewStyle = {
+const $container: ThemedStyle<ViewStyle> = ({ colors }) => ({
   padding: sizes.spacing.md,
   backgroundColor: colors.background.primary,
   borderColor: colors.border.base,
@@ -76,29 +79,29 @@ const $container: ViewStyle = {
   paddingBottom: sizes.spacing.md,
   borderBottomLeftRadius: sizes.spacing.lg,
   borderBottomRightRadius: sizes.spacing.lg,
-}
+})
 
 const $heading: TextStyle = {
   marginVertical: sizes.spacing.md,
   textAlign: 'center',
 }
 
-const $textArea: ViewStyle = {
+const $textArea: ThemedStyle<ViewStyle> = ({ colors }) => ({
   borderColor: colors.border.base,
   borderWidth: sizes.border.sm,
   padding: sizes.spacing.sm,
   borderRadius: sizes.spacing.md,
   marginBottom: sizes.spacing.lg,
-}
+})
 
-const $textInput: TextStyle = {
+const $textInput: ThemedStyle<TextStyle> = ({ colors }) => ({
   fontFamily: fonts.primary.regular,
   color: colors.text.base,
   borderColor: colors.border.base,
   height: 84,
   overflow: 'scroll',
   textAlignVertical: 'top',
-}
+})
 
 const $formActions: ViewStyle = {
   flexDirection: 'column',
@@ -106,6 +109,6 @@ const $formActions: ViewStyle = {
   marginTop: sizes.spacing.md,
 }
 
-const $secondaryButton: ViewStyle = {
+const $secondaryButton: ThemedStyle<ViewStyle> = ({ colors }) => ({
   backgroundColor: colors.background.primary,
-}
+})

@@ -1,16 +1,12 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  NavigationContainer,
-} from '@react-navigation/native'
+import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React, { useEffect } from 'react'
-import { Platform, Pressable, useColorScheme } from 'react-native'
+import { Platform, Pressable } from 'react-native'
 import type { ViewStyle } from 'react-native'
 import { MMKV } from 'react-native-mmkv'
 
-import { colors, fonts, sizes } from '../../../shared/theme'
+import { fonts, sizes } from '../../../shared/theme'
 import { getObjectKeys, safeParse } from '../../../shared/utils/object'
 import { useAppState } from '../../../shared/utils/useAppState'
 import { Icon } from '../components/Icon'
@@ -18,6 +14,7 @@ import type { IconProps } from '../components/Icon'
 import { GameDetailsScreen } from '../screens/GameDetailsScreen'
 import { GamesListScreen } from '../screens/GamesListScreen'
 import { ReviewScreen } from '../screens/ReviewScreen'
+import { useAppTheme, useThemeProvider } from '../services/theme'
 import {
   cancelScheduledNotifications,
   NotificationCategory,
@@ -66,6 +63,7 @@ declare global {
 const Stack = createNativeStackNavigator<AppStackParamList>()
 
 function renderIconButton(props: IconProps & { onPress?: () => void }) {
+  const { theme: { colors } } = useAppTheme()
   const {
     name,
     onPress,
@@ -84,6 +82,7 @@ function renderIconButton(props: IconProps & { onPress?: () => void }) {
 }
 
 const AppStack = () => {
+  const { theme: { colors } } = useAppTheme()
   useNotificationEvents()
 
   return (
@@ -133,7 +132,8 @@ const AppStack = () => {
 }
 
 export const AppNavigator = (props: NavigationProps) => {
-  const colorScheme = useColorScheme()
+  const { navigationTheme } = useThemeProvider()
+  const { theme: { colors } } = useAppTheme()
   const appState = useAppState()
 
   const { favorites, reviews, games } = useGlobalState()
@@ -186,7 +186,7 @@ export const AppNavigator = (props: NavigationProps) => {
   return (
     <NavigationContainer
       initialState={initNavigation}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+      theme={navigationTheme}
       onStateChange={state => storage.set('state', JSON.stringify(state))}
       {...props}>
       <AppStack />

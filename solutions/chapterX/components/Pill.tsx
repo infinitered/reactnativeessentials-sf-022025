@@ -2,22 +2,25 @@ import React from 'react'
 import { View } from 'react-native'
 import type { TextStyle, ViewStyle } from 'react-native'
 
-import { colors, sizes } from '../../../shared/theme'
+import { sizes } from '../../../shared/theme'
 import { Text } from './Text'
+import { useAppTheme } from '../services/theme'
+import type { ThemedStyle } from '../services/theme'
 
 interface PillProps {
   text: string
 }
 
 export const Pill = (props: PillProps) => {
+  const { themed } = useAppTheme()
   return (
-    <View style={$pill}>
-      <Text preset="label1" text={props.text} style={$text} />
+    <View style={themed($pill)}>
+      <Text preset="label1" text={props.text} style={themed($text)} />
     </View>
   )
 }
 
-const $pill: ViewStyle = {
+const $pill: ThemedStyle<ViewStyle> = ({ colors }) => ({
   alignItems: 'center',
   alignSelf: 'flex-start',
   backgroundColor: colors.background.accent,
@@ -27,8 +30,8 @@ const $pill: ViewStyle = {
   height: sizes.spacing.xl,
   justifyContent: 'center',
   paddingHorizontal: sizes.spacing.md,
-}
+})
 
-const $text: TextStyle = {
+const $text: ThemedStyle<TextStyle> = ({ colors }) => ({
   color: colors.text.brand,
-}
+})

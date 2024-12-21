@@ -2,12 +2,15 @@ import React from 'react'
 import { View } from 'react-native'
 import type { TextStyle, ViewStyle } from 'react-native'
 
-import { colors, sizes } from '../../../shared/theme'
+import { sizes } from '../../../shared/theme'
 import { Icon } from './Icon'
 import type { IconProps } from './Icon'
 import { Text } from './Text'
+import { useAppTheme } from '../services/theme'
+import type { ThemedStyle } from '../services/theme'
 
 export const Empty = (props: { text?: string; icon?: IconProps['name'] }) => {
+  const { theme: { colors }, themed } = useAppTheme()
   return (
     <View style={$emptyContentWrapper}>
       <Icon
@@ -18,7 +21,7 @@ export const Empty = (props: { text?: string; icon?: IconProps['name'] }) => {
       <Text
         preset="display"
         text={props.text ?? "There's\nNothing Here..."}
-        style={$emptyText}
+        style={themed($emptyText)}
       />
     </View>
   )
@@ -29,7 +32,7 @@ const $emptyContentWrapper: ViewStyle = {
   paddingVertical: sizes.spacing.xl,
 }
 
-const $emptyText: TextStyle = {
+const $emptyText: ThemedStyle<TextStyle> = ({ colors }) => ({
   color: colors.text.baseMuted,
   marginStart: sizes.spacing.md,
-}
+})

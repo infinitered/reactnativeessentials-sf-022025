@@ -68,7 +68,7 @@ export const GlobalStateProvider = ({ children }: PropsWithChildren) => {
     },
     [reviews, setReviews],
   )
-
+  
   useEffect(() => {
     if (appState === 'active') {
       const newReviewsFromStorage: Reviews = safeParse(

@@ -6,13 +6,15 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { api } from '../../../shared/services/api'
 import type { Game } from '../../../shared/services/types'
-import { colors, sizes } from '../../../shared/theme'
+import { sizes } from '../../../shared/theme'
 import { Card } from '../components/Card'
 import { Empty } from '../components/Empty'
 import { Pill } from '../components/Pill'
 import { Switch } from '../components/Switch'
 import { Text } from '../components/Text'
 import { useGlobalState } from '../services/state'
+import { useAppTheme } from '../services/theme'
+import type { ThemedStyle } from '../services/theme'
 
 function useGameData() {
   const { favorites, games, setGames } = useGlobalState()
@@ -62,10 +64,11 @@ export const GamesListScreen = () => {
     filterFavorites,
     setFilterFavorites,
   } = useGameData()
+  const { themed } = useAppTheme()
 
   return (
     <>
-      <View style={$favoritesFilter}>
+      <View style={themed($favoritesFilter)}>
         <Text preset="title1" text="Show Favorites" />
         <Switch
           on={filterFavorites}
@@ -74,7 +77,7 @@ export const GamesListScreen = () => {
       </View>
       <SectionList
         sections={games}
-        style={$list}
+        style={themed($list)}
         keyExtractor={item => String(item.id)}
         contentContainerStyle={[{ paddingBottom }, $contentContainer]}
         ListEmptyComponent={<Empty />}
@@ -101,16 +104,16 @@ export const GamesListScreen = () => {
   )
 }
 
-const $list: ViewStyle = {
+const $list: ThemedStyle<ViewStyle> = ({ colors }) => ({
   backgroundColor: colors.background.primary,
-}
+})
 
 const $contentContainer: ViewStyle = {
   rowGap: sizes.spacing.lg,
   padding: sizes.spacing.md,
 }
 
-const $favoritesFilter: ViewStyle = {
+const $favoritesFilter: ThemedStyle<ViewStyle> = ({ colors }) => ({
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
@@ -118,4 +121,4 @@ const $favoritesFilter: ViewStyle = {
   borderBottomColor: colors.border.base,
   borderBottomWidth: 2,
   backgroundColor: colors.background.secondary,
-}
+})

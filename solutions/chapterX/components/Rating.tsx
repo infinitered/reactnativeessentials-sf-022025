@@ -2,9 +2,10 @@ import React from 'react'
 import { View } from 'react-native'
 import type { TextStyle, ViewStyle } from 'react-native'
 
-import { colors, sizes } from '../../../shared/theme'
+import { sizes } from '../../../shared/theme'
 import { Icon } from './Icon'
 import { Text } from './Text'
+import { useAppTheme } from '../services/theme'
 
 interface RatingProps {
   rating: number
@@ -12,6 +13,7 @@ interface RatingProps {
 }
 
 export const Rating = ({ rating, ratingsCount }: RatingProps) => {
+  const { theme: { colors } } = useAppTheme()
   const label = [
     'Rating',
     ratingsCount !== undefined && `(${ratingsCount} ratings)`,

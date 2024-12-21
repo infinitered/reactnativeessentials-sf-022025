@@ -9,15 +9,21 @@ import {
 import { AppNavigator } from './navigators/AppNavigator'
 import { setupNotifications } from './services/notifications'
 import { GlobalStateProvider } from './services/state'
+import { useThemeProvider } from './services/theme'
 
 setupNotifications()
 
 const App = (): React.JSX.Element | null => {
+
+  const { themeScheme, ThemeProvider } = useThemeProvider()
+
   return (
     <GestureHandlerRootView style={$gestureHandler}>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
         <GlobalStateProvider>
-          <AppNavigator />
+          <ThemeProvider value={{ themeScheme }}>
+            <AppNavigator />
+          </ThemeProvider>
         </GlobalStateProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>

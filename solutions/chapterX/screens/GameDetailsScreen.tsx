@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { api } from '../../../shared/services/api'
 import type { Game, Reviews } from '../../../shared/services/types'
-import { colors, sizes } from '../../../shared/theme'
+import { sizes } from '../../../shared/theme'
 import { Button } from '../components/Button'
 import { Empty } from '../components/Empty'
 import { Rating } from '../components/Rating'
@@ -19,6 +19,8 @@ import {
   NotificationType,
 } from '../services/notifications'
 import { useGlobalState } from '../services/state'
+import { useAppTheme } from '../services/theme'
+import type { ThemedStyle } from '../services/theme'
 
 interface ReviewsProps {
   gameId: number
@@ -26,6 +28,7 @@ interface ReviewsProps {
 }
 
 export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
+  const { theme: { colors }, themed } = useAppTheme()
   const { bottom: paddingBottom } = useSafeAreaInsets()
   const gameId = route.params.gameId
   const state = useGlobalState()
@@ -87,21 +90,21 @@ export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
 
   return (
     <ScrollView
-      style={$scrollView}
+      style={themed($scrollView)}
       contentContainerStyle={[$contentContainer, { paddingBottom }]}>
       {screenshots ? (
         <Image
           blurRadius={10}
           source={{ uri: screenshots[0]?.imageUrl }}
-          style={$imageBackground}
+          style={themed($imageBackground)}
         />
       ) : (
-        <View style={$imageBackground} />
+        <View style={themed($imageBackground)} />
       )}
       {!!id && (
         <View style={$favoriteWrapper}>
           <Text
-            style={$favoriteLabel}
+            style={themed($favoriteLabel)}
             preset="title1"
             text="Add to Favorites"
           />
@@ -114,16 +117,16 @@ export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
           />
         </View>
       )}
-      <View style={$bodyWrapper}>
+      <View style={themed($bodyWrapper)}>
         <View style={$headerWrapper}>
           {cover ? (
             <Image
               resizeMode="cover"
               source={{ uri: cover?.imageUrl }}
-              style={$image}
+              style={themed($image)}
             />
           ) : (
-            <View style={$image} />
+            <View style={themed($image)} />
           )}
 
           <Text preset="headline1" text={name} />
@@ -180,10 +183,11 @@ export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
 
 const Reviews = ({ gameId, reviews }: ReviewsProps) => {
   const navigation = useNavigation()
+  const { themed } = useAppTheme()
 
   return (
     <>
-      <View style={$reviewsHeaderWrapper}>
+      <View style={themed($reviewsHeaderWrapper)}>
         <Text preset="label2">
           Reviews: <Text preset="title2" text={reviews.length.toString()} />
         </Text>
@@ -194,7 +198,7 @@ const Reviews = ({ gameId, reviews }: ReviewsProps) => {
       </View>
 
       {reviews.map((review, index) => (
-        <View key={index} style={$reviewWrapper}>
+        <View key={index} style={themed($reviewWrapper)}>
           <Text text={review} />
         </View>
       ))}
@@ -202,20 +206,20 @@ const Reviews = ({ gameId, reviews }: ReviewsProps) => {
   )
 }
 
-const $scrollView: ViewStyle = {
+const $scrollView: ThemedStyle<ViewStyle> = ({ colors }) => ({
   flex: 1,
   backgroundColor: colors.background.secondary,
-}
+})
 
 const $contentContainer: ViewStyle = {
   flexGrow: 1,
 }
 
-const $bodyWrapper: ViewStyle = {
+const $bodyWrapper: ThemedStyle<ViewStyle> = ({ colors }) => ({
   backgroundColor: colors.background.primary,
   paddingHorizontal: sizes.spacing.md,
   flexGrow: 1,
-}
+})
 
 const $informationWrapper: ViewStyle = {
   paddingVertical: sizes.spacing.md,
@@ -246,22 +250,22 @@ const $favoriteWrapper: ViewStyle = {
   gap: sizes.spacing.xs,
 }
 
-const $favoriteLabel: TextStyle = {
+const $favoriteLabel: ThemedStyle<TextStyle> = ({ colors }) => ({
   color: colors.text.overlay,
   textShadowColor: colors.manipulators.changeHexAlpha(colors.text.base, 40),
   textShadowOffset: { width: 0, height: 1 },
   textShadowRadius: 1,
-}
+})
 
-const $imageBackground: ImageStyle = {
+const $imageBackground: ThemedStyle<ImageStyle> = ({ colors }) => ({
   height: 175,
   width: '100%',
   backgroundColor: colors.background.secondary,
   borderColor: colors.border.base,
   borderBottomWidth: sizes.border.sm,
-}
+})
 
-const $image: ImageStyle = {
+const $image: ThemedStyle<ImageStyle> = ({ colors }) => ({
   borderColor: colors.border.base,
   borderRadius: sizes.radius.sm,
   borderWidth: sizes.border.sm,
@@ -271,25 +275,25 @@ const $image: ImageStyle = {
   backgroundColor: colors.background.secondary,
   position: 'absolute',
   bottom: 0,
-}
+})
 
 const $headerWrapper: ViewStyle = {
   alignItems: 'center',
   flexDirection: 'row',
   paddingVertical: sizes.spacing.md,
-  paddingLeft: ($image.width as number) + sizes.spacing.md,
+  paddingLeft: 115 + sizes.spacing.md, // image width + margin
   minHeight: 104,
 }
 
-const $reviewsHeaderWrapper: ViewStyle = {
+const $reviewsHeaderWrapper: ThemedStyle<ViewStyle> = ({ colors }) => ({
   padding: sizes.spacing.md,
   rowGap: sizes.spacing.md,
   borderColor: colors.border.base,
   borderTopWidth: sizes.border.sm,
-}
+})
 
-const $reviewWrapper: ViewStyle = {
+const $reviewWrapper: ThemedStyle<ViewStyle> = ({ colors }) => ({
   borderColor: colors.border.base,
   borderTopWidth: sizes.border.sm,
   padding: sizes.spacing.md,
-}
+})
