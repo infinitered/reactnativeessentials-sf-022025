@@ -1,21 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import {
-  Image,
-  type ImageStyle,
-  ScrollView,
-  type TextStyle,
-  View,
-  type ViewStyle,
-} from 'react-native'
+import { Image, ScrollView, View } from 'react-native'
+import type { ImageStyle, TextStyle, ViewStyle } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { api } from '../../../shared/services/api'
-import { Game } from '../../../shared/services/types'
+import type { Game } from '../../../shared/services/types'
 import { colors, sizes } from '../../../shared/theme'
 import { Empty } from '../components/Empty'
 import { Rating } from '../components/Rating'
 import { Text } from '../components/Text'
-import { type ScreenProps } from '../navigators/AppNavigator'
+import type { ScreenProps } from '../navigators/AppNavigator'
 
 export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
   const { bottom: paddingBottom } = useSafeAreaInsets()

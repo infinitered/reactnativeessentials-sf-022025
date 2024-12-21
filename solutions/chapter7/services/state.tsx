@@ -1,19 +1,19 @@
 import React, {
   createContext,
-  PropsWithChildren,
   useCallback,
   useContext,
   useState,
 } from 'react'
+import type { PropsWithChildren } from 'react'
 import { MMKV } from 'react-native-mmkv'
 
-import {
-  type AppendReview,
-  type Favorites,
-  type Game,
-  type GlobalStateContextData,
-  type Reviews,
-  type ToggleFavorite,
+import type {
+  AppendReview,
+  Favorites,
+  Game,
+  GlobalStateContextData,
+  Reviews,
+  ToggleFavorite,
 } from '../../../shared/services/types'
 import { safeParse } from '../../../shared/utils/object'
 

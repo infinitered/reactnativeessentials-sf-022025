@@ -1,19 +1,13 @@
 import React from 'react'
-import {
-  Image,
-  type ImageStyle,
-  ScrollView,
-  type TextStyle,
-  View,
-  type ViewStyle,
-} from 'react-native'
+import type { ImageStyle, TextStyle, ViewStyle } from 'react-native'
+import { Image, ScrollView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { colors, sizes } from '../../../shared/theme'
 import { games } from '../../../shared/utils/sampleGames'
 import { Rating } from '../components/Rating'
 import { Text } from '../components/Text'
-import { type ScreenProps } from '../navigators/AppNavigator'
+import type { ScreenProps } from '../navigators/AppNavigator'
 
 export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
   const { bottom: paddingBottom } = useSafeAreaInsets()

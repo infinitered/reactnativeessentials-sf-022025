@@ -1,14 +1,11 @@
 import React, {
   createContext,
-  PropsWithChildren,
   useContext,
   useState,
 } from 'react'
+import { PropsWithChildren } from 'react'
 
-import {
-  type Game,
-  type GlobalStateContextData,
-} from '../../../shared/services/types'
+import type { Game, GlobalStateContextData } from '../../../shared/services/types'
 
 export const GlobalStateContext = createContext<
   Pick<GlobalStateContextData, 'games' | 'setGames'>

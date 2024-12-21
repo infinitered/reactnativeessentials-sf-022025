@@ -1,5 +1,6 @@
 import React from 'react'
-import { TextStyle, View, type ViewStyle } from 'react-native'
+import { View } from 'react-native'
+import type { TextStyle, ViewStyle } from 'react-native'
 
 import { colors, sizes } from '../../../shared/theme'
 import { Text } from './Text'

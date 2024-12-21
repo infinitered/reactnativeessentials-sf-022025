@@ -1,10 +1,11 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { SectionList, View, ViewStyle } from 'react-native'
+import { SectionList, View } from 'react-native'
+import type { ViewStyle } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { api } from '../../../shared/services/api'
-import { Game } from '../../../shared/services/types'
+import type { Game } from '../../../shared/services/types'
 import { colors, sizes } from '../../../shared/theme'
 import { Card } from '../components/Card'
 import { Empty } from '../components/Empty'

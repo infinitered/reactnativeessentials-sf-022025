@@ -1,5 +1,6 @@
 import React from 'react'
-import { Switch as RNSwitch, View, ViewStyle } from 'react-native'
+import { Switch as RNSwitch, View } from 'react-native'
+import type { ViewStyle } from 'react-native'
 
 import { colors } from '../../../shared/theme'
 

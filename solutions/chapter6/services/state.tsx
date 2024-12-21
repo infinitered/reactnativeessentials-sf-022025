@@ -1,18 +1,13 @@
 import React, {
   createContext,
-  PropsWithChildren,
   useCallback,
   useContext,
   useState,
 } from 'react'
+import type { PropsWithChildren } from 'react'
 import { MMKV } from 'react-native-mmkv'
 
-import {
-  type AppendReview,
-  type Game,
-  type GlobalStateContextData,
-  type Reviews,
-} from '../../../shared/services/types'
+import type { AppendReview, Game, GlobalStateContextData, Reviews } from '../../../shared/services/types'
 import { safeParse } from '../../../shared/utils/object'
 
 const storage = new MMKV({ id: '@RNEssentials/global/state' })
