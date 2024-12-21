@@ -33,6 +33,7 @@ const appFileRegistry = {
   chapter5: () => require('./solutions/chapter5/App').default,
   chapter6: () => require('./solutions/chapter6/App').default,
   chapter7: () => require('./solutions/chapter7/App').default,
+  chapter8: () => require('./solutions/chapter8/App').default,
   chapterX: () => require('./solutions/chapterX/App').default,
 }
 
