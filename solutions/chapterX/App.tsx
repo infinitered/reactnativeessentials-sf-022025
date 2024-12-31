@@ -1,3 +1,5 @@
+import './services/i18n'
+
 import React from 'react'
 import type { ViewStyle } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
@@ -14,7 +16,6 @@ import { useThemeProvider } from './services/theme'
 setupNotifications()
 
 const App = (): React.JSX.Element | null => {
-
   const { themeScheme, ThemeProvider } = useThemeProvider()
 
   return (

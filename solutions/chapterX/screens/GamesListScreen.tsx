@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { SectionList, View } from 'react-native'
 import type { ViewStyle } from 'react-native'
+import { SectionList, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { api } from '../../../shared/services/api'
@@ -12,9 +12,10 @@ import { Empty } from '../components/Empty'
 import { Pill } from '../components/Pill'
 import { Switch } from '../components/Switch'
 import { Text } from '../components/Text'
+import { isRTL } from '../services/i18n'
 import { useGlobalState } from '../services/state'
-import { useAppTheme } from '../services/theme'
 import type { ThemedStyle } from '../services/theme'
+import { useAppTheme } from '../services/theme'
 
 function useGameData() {
   const { favorites, games, setGames } = useGlobalState()
@@ -69,7 +70,7 @@ export const GamesListScreen = () => {
   return (
     <>
       <View style={themed($favoritesFilter)}>
-        <Text preset="title1" text="Show Favorites" />
+        <Text preset="title1" tx={'gamesListScreen:showFavorites'} />
         <Switch
           on={filterFavorites}
           onToggle={() => setFilterFavorites(!filterFavorites)}
@@ -94,7 +95,7 @@ export const GamesListScreen = () => {
             }}
             name={item.name}
             rating={item.totalRatingStars}
-            releaseDate={item.releaseDate.human}
+            releaseDate={item.releaseDate.date}
             imageUrl={item.cover.imageUrl}
           />
         )}
@@ -114,7 +115,7 @@ const $contentContainer: ViewStyle = {
 }
 
 const $favoritesFilter: ThemedStyle<ViewStyle> = ({ colors }) => ({
-  flexDirection: 'row',
+  flexDirection: isRTL ? 'row-reverse' : 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
   padding: sizes.spacing.md,

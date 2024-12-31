@@ -1,7 +1,8 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Image, ScrollView, View } from 'react-native'
+import { Trans } from 'react-i18next'
 import type { ImageStyle, TextStyle, ViewStyle } from 'react-native'
+import { Image, ScrollView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { api } from '../../../shared/services/api'
@@ -13,14 +14,15 @@ import { Rating } from '../components/Rating'
 import { Switch } from '../components/Switch'
 import { Text } from '../components/Text'
 import type { ScreenProps } from '../navigators/AppNavigator'
+import { epochToFormattedDate, isRTL } from '../services/i18n'
 import {
   displayLocalNotification,
   NotificationChannel,
   NotificationType,
 } from '../services/notifications'
 import { useGlobalState } from '../services/state'
-import { useAppTheme } from '../services/theme'
 import type { ThemedStyle } from '../services/theme'
+import { useAppTheme } from '../services/theme'
 
 interface ReviewsProps {
   gameId: number
@@ -28,11 +30,14 @@ interface ReviewsProps {
 }
 
 export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
-  const { theme: { colors }, themed } = useAppTheme()
+  const {
+    theme: { colors },
+    themed,
+  } = useAppTheme()
   const { bottom: paddingBottom } = useSafeAreaInsets()
   const gameId = route.params.gameId
   const state = useGlobalState()
-  const reviews = gameId ? state.reviews[gameId] ?? [] : []
+  const reviews = gameId ? (state.reviews[gameId] ?? []) : []
 
   const { favorites, toggleFavorite } = useGlobalState()
   const [game, setGame] = useState<Game | undefined>()
@@ -106,7 +111,7 @@ export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
           <Text
             style={themed($favoriteLabel)}
             preset="title1"
-            text="Add to Favorites"
+            tx={'gameDetailsScreen:addToFavorites'}
           />
           <Switch
             on={isFavorite}
@@ -133,20 +138,22 @@ export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
         </View>
 
         {!game ? (
-          <Empty text={'Loading\nPlease Wait...'} icon="loader" />
+          <Empty tx={'gameDetailsScreen:loadingPleaseWait'} icon="loader" />
         ) : (
           <>
             <View style={$informationWrapper}>
               <View style={$informationRow}>
-                <Text preset="label2" text="Released:" />
-                <Text
-                  preset="title2"
-                  text={releaseDate?.human}
-                  style={$informationValue}
-                />
+                <Text preset="label2" tx={'gameDetailsScreen:released'} />
+                {releaseDate?.date && (
+                  <Text
+                    preset="title2"
+                    text={epochToFormattedDate(releaseDate.date)}
+                    style={$informationValue}
+                  />
+                )}
               </View>
               <View style={$informationRow}>
-                <Text preset="label2" text="Genre:" />
+                <Text preset="label2" tx={'gameDetailsScreen:genre'} />
                 <Text
                   preset="title2"
                   text={genres?.map(g => g.name).join(', ')}
@@ -154,7 +161,7 @@ export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
                 />
               </View>
               <View style={$informationRow}>
-                <Text preset="label2" text="Studio:" />
+                <Text preset="label2" tx={'gameDetailsScreen:studio'} />
                 <Text
                   preset="title2"
                   text={involvedCompanies?.map(c => c.company.name).join(', ')}
@@ -170,7 +177,7 @@ export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
             </View>
 
             <View style={$descriptionWrapper}>
-              <Text text={summary} />
+              <Text text={summary} style={$rtlText} />
             </View>
           </>
         )}
@@ -188,22 +195,32 @@ const Reviews = ({ gameId, reviews }: ReviewsProps) => {
   return (
     <>
       <View style={themed($reviewsHeaderWrapper)}>
-        <Text preset="label2">
-          Reviews: <Text preset="title2" text={reviews.length.toString()} />
+        <Text preset="label2" style={$rtlText}>
+          <Trans
+            ns="reviewScreen"
+            i18nKey={'reviews'}
+            components={{
+              Stars: <Text preset="title2" text={reviews.length.toString()} />,
+            }}
+          />
         </Text>
         <Button
-          text="Write A Review"
+          tx={'reviewScreen:writeAReview'}
           onPress={() => navigation.navigate('Review', { gameId })}
         />
       </View>
 
       {reviews.map((review, index) => (
         <View key={index} style={themed($reviewWrapper)}>
-          <Text text={review} />
+          <Text text={review} style={$rtlText} />
         </View>
       ))}
     </>
   )
+}
+
+const $rtlText: TextStyle = {
+  textAlign: isRTL ? 'right' : 'left',
 }
 
 const $scrollView: ThemedStyle<ViewStyle> = ({ colors }) => ({
@@ -227,7 +244,7 @@ const $informationWrapper: ViewStyle = {
 }
 
 const $informationRow: ViewStyle = {
-  flexDirection: 'row',
+  flexDirection: isRTL ? 'row-reverse' : 'row',
   alignItems: 'flex-start',
   columnGap: sizes.spacing.xs,
 }
@@ -235,6 +252,7 @@ const $informationRow: ViewStyle = {
 const $informationValue: TextStyle = {
   flex: 1,
   top: -2,
+  textAlign: isRTL ? 'right' : 'left',
 }
 
 const $descriptionWrapper: ViewStyle = {
@@ -245,7 +263,7 @@ const $favoriteWrapper: ViewStyle = {
   position: 'absolute',
   right: sizes.spacing.md,
   top: sizes.spacing.md,
-  flexDirection: 'row',
+  flexDirection: isRTL ? 'row-reverse' : 'row',
   alignItems: 'center',
   gap: sizes.spacing.xs,
 }
@@ -270,7 +288,8 @@ const $image: ThemedStyle<ImageStyle> = ({ colors }) => ({
   borderRadius: sizes.radius.sm,
   borderWidth: sizes.border.sm,
   height: 153,
-  marginEnd: sizes.spacing.md,
+  marginEnd: isRTL ? 0 : sizes.spacing.md,
+  marginStart: isRTL ? sizes.spacing.md : 0,
   width: 115,
   backgroundColor: colors.background.secondary,
   position: 'absolute',
@@ -279,9 +298,10 @@ const $image: ThemedStyle<ImageStyle> = ({ colors }) => ({
 
 const $headerWrapper: ViewStyle = {
   alignItems: 'center',
-  flexDirection: 'row',
+  flexDirection: isRTL ? 'row-reverse' : 'row',
   paddingVertical: sizes.spacing.md,
-  paddingLeft: 115 + sizes.spacing.md, // image width + margin
+  paddingLeft: isRTL ? 0 : 115 + sizes.spacing.md, // image width + margin
+  paddingRight: isRTL ? 115 + sizes.spacing.md : 0, // image width + margin
   minHeight: 104,
 }
 

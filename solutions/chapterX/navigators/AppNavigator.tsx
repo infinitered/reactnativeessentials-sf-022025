@@ -1,20 +1,21 @@
 import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React, { useEffect } from 'react'
-import { Platform, Pressable } from 'react-native'
+import { useTranslation } from 'react-i18next'
 import type { ViewStyle } from 'react-native'
+import { Platform, Pressable } from 'react-native'
 import { MMKV } from 'react-native-mmkv'
 
 import { fonts, sizes } from '../../../shared/theme'
 import { getObjectKeys, safeParse } from '../../../shared/utils/object'
 import { useAppState } from '../../../shared/utils/useAppState'
-import { Icon } from '../components/Icon'
 import type { IconProps } from '../components/Icon'
+import { Icon } from '../components/Icon'
 import { GameDetailsScreen } from '../screens/GameDetailsScreen'
 import { GamesListScreen } from '../screens/GamesListScreen'
 import { ReviewScreen } from '../screens/ReviewScreen'
-import { useAppTheme, useThemeProvider } from '../services/theme'
+import { isRTL } from '../services/i18n'
 import {
   cancelScheduledNotifications,
   NotificationCategory,
@@ -25,6 +26,7 @@ import {
   useNotificationEvents,
 } from '../services/notifications'
 import { useGlobalState } from '../services/state'
+import { useAppTheme, useThemeProvider } from '../services/theme'
 
 const storage = new MMKV({ id: '@RNEssentials/navigation/state' })
 
@@ -63,7 +65,9 @@ declare global {
 const Stack = createNativeStackNavigator<AppStackParamList>()
 
 function renderIconButton(props: IconProps & { onPress?: () => void }) {
-  const { theme: { colors } } = useAppTheme()
+  const {
+    theme: { colors },
+  } = useAppTheme()
   const {
     name,
     onPress,
@@ -82,20 +86,24 @@ function renderIconButton(props: IconProps & { onPress?: () => void }) {
 }
 
 const AppStack = () => {
-  const { theme: { colors } } = useAppTheme()
+  const {
+    theme: { colors },
+  } = useAppTheme()
+  const { t } = useTranslation(['gamesListScreen'])
   useNotificationEvents()
 
   return (
     <Stack.Navigator
       initialRouteName="GamesList"
       screenOptions={({ navigation }) => ({
+        animation: isRTL ? 'slide_from_left' : 'slide_from_right',
         contentStyle: {
           borderTopColor: colors.border.base,
           borderTopWidth: 2,
         },
         headerLeft: ({ canGoBack }) =>
           renderIconButton({
-            name: 'arrow-left-circle',
+            name: isRTL ? 'arrow-right-circle' : 'arrow-left-circle',
             onPress: canGoBack ? navigation.goBack : undefined,
           }),
         headerStyle: {
@@ -111,7 +119,7 @@ const AppStack = () => {
       <Stack.Screen
         name="GamesList"
         component={GamesListScreen}
-        options={{ title: 'Retro Games' }}
+        options={{ title: t('retroGames') }}
       />
       <Stack.Screen
         name="GameDetails"
@@ -133,7 +141,6 @@ const AppStack = () => {
 
 export const AppNavigator = (props: NavigationProps) => {
   const { navigationTheme } = useThemeProvider()
-  const { theme: { colors } } = useAppTheme()
   const appState = useAppState()
 
   const { favorites, reviews, games } = useGlobalState()
@@ -163,7 +170,7 @@ export const AppNavigator = (props: NavigationProps) => {
           android: {
             channelId: NotificationChannel.Default,
             smallIcon: 'ic_notification_default',
-            color: colors.text.accent,
+            color: 'red',
             pressAction: { id: 'default' },
             actions: [
               {

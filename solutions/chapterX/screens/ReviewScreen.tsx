@@ -1,20 +1,26 @@
 import React, { useCallback, useState } from 'react'
-import { TextInput, View } from 'react-native'
+import { useTranslation } from 'react-i18next'
 import type { TextStyle, ViewStyle } from 'react-native'
+import { TextInput, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { fonts, sizes } from '../../../shared/theme'
 import { Button } from '../components/Button'
 import { Text } from '../components/Text'
 import type { ScreenProps } from '../navigators/AppNavigator'
+import { isRTL } from '../services/i18n'
 import { useGlobalState } from '../services/state'
-import { useAppTheme } from '../services/theme'
 import type { ThemedStyle } from '../services/theme'
+import { useAppTheme } from '../services/theme'
 
 export const ReviewScreen = ({ navigation, route }: ScreenProps<'Review'>) => {
-  const { theme: { colors }, themed } = useAppTheme()
+  const {
+    theme: { colors },
+    themed,
+  } = useAppTheme()
   const { top: paddingTop } = useSafeAreaInsets()
   const [value, setValue] = useState('')
+  const { t } = useTranslation(['reviewScreen'])
 
   const state = useGlobalState()
   const { gameId } = route.params
@@ -37,11 +43,15 @@ export const ReviewScreen = ({ navigation, route }: ScreenProps<'Review'>) => {
   return (
     <View style={themed($modal)}>
       <View style={[themed($container), { paddingTop }]}>
-        <Text style={$heading} preset="headline2" text="Write a Review" />
+        <Text
+          style={$heading}
+          preset="headline2"
+          tx={'reviewScreen:writeAReview'}
+        />
         <View style={themed($textArea)}>
           <TextInput
             style={themed($textInput)}
-            placeholder="Type your reivew..."
+            placeholder={t('typeYourReview')}
             multiline
             value={value}
             onChangeText={setValue}
@@ -49,9 +59,9 @@ export const ReviewScreen = ({ navigation, route }: ScreenProps<'Review'>) => {
           />
         </View>
         <View style={$formActions}>
-          <Button text="Submit Review" onPress={submitReview} />
+          <Button tx={'reviewScreen:submitReview'} onPress={submitReview} />
           <Button
-            text="Close"
+            tx={'common:close'}
             icon="x"
             style={themed($secondaryButton)}
             onPress={backToPrevious}
@@ -101,6 +111,7 @@ const $textInput: ThemedStyle<TextStyle> = ({ colors }) => ({
   height: 84,
   overflow: 'scroll',
   textAlignVertical: 'top',
+  textAlign: isRTL ? 'right' : 'left',
 })
 
 const $formActions: ViewStyle = {

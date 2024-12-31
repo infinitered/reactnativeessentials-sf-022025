@@ -1,3 +1,4 @@
+import type { PropsWithChildren } from 'react'
 import React, {
   createContext,
   useCallback,
@@ -5,7 +6,6 @@ import React, {
   useEffect,
   useState,
 } from 'react'
-import type { PropsWithChildren } from 'react'
 import { MMKV } from 'react-native-mmkv'
 
 import {
@@ -68,7 +68,7 @@ export const GlobalStateProvider = ({ children }: PropsWithChildren) => {
     },
     [reviews, setReviews],
   )
-  
+
   useEffect(() => {
     if (appState === 'active') {
       const newReviewsFromStorage: Reviews = safeParse(

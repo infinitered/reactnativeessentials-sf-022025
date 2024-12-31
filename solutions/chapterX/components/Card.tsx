@@ -1,17 +1,19 @@
 import React from 'react'
+import { Trans } from 'react-i18next'
+import type { ImageStyle, TextStyle, ViewStyle } from 'react-native'
 import { Image, Pressable, View } from 'react-native'
-import type { ImageStyle, ViewStyle } from 'react-native'
 
 import { sizes } from '../../../shared/theme'
+import { epochToFormattedDate, isRTL } from '../services/i18n'
+import type { ThemedStyle } from '../services/theme'
+import { useAppTheme } from '../services/theme'
 import { Rating } from './Rating'
 import { Text } from './Text'
-import { useAppTheme } from '../services/theme'
-import type { ThemedStyle } from '../services/theme'
 
 interface CardProps {
   name: string
   imageUrl: string
-  releaseDate: string
+  releaseDate: number
   rating: number
   onPress: () => void
 }
@@ -25,11 +27,26 @@ export const Card = (props: CardProps) => {
       <View style={themed($card)}>
         <Image source={{ uri: imageUrl }} style={themed($image)} />
         <View style={$contentWrapper}>
-          <Text numberOfLines={1} preset="headline2" text={name} />
+          <Text
+            numberOfLines={1}
+            preset="headline2"
+            text={name}
+            style={$name}
+          />
 
           <View style={$contentRow}>
-            <Text preset="label2" text="Released:" />
-            <Text preset="title2" text={releaseDate} />
+            <Text preset="label2">
+              <Trans
+                ns="gameDetailsScreen"
+                i18nKey="releasedDate"
+                components={{
+                  date: <Text preset="title2" />,
+                }}
+                values={{
+                  releaseDate: epochToFormattedDate(releaseDate),
+                }}
+              />
+            </Text>
           </View>
 
           <Rating rating={rating} />
@@ -44,7 +61,7 @@ const $card: ThemedStyle<ViewStyle> = ({ colors }) => ({
   borderColor: colors.border.base,
   borderRadius: sizes.radius.md,
   borderWidth: sizes.border.sm,
-  flexDirection: 'row',
+  flexDirection: isRTL ? 'row-reverse' : 'row',
   padding: sizes.spacing.md,
   columnGap: sizes.spacing.md,
 })
@@ -74,7 +91,11 @@ const $image: ThemedStyle<ImageStyle> = ({ colors }) => ({
 })
 
 const $contentRow: ViewStyle = {
-  flexDirection: 'row',
+  flexDirection: isRTL ? 'row-reverse' : 'row',
   columnGap: sizes.spacing.xs,
   alignItems: 'center',
+}
+
+const $name: TextStyle = {
+  textAlign: isRTL ? 'right' : 'left',
 }

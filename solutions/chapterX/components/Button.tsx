@@ -1,5 +1,4 @@
 import React from 'react'
-import { Pressable, View } from 'react-native'
 import type {
   PressableProps,
   PressableStateCallbackType,
@@ -7,19 +6,25 @@ import type {
   TextStyle,
   ViewStyle,
 } from 'react-native'
+import { Pressable, View } from 'react-native'
 
 import { sizes } from '../../../shared/theme'
-import { Icon } from './Icon'
-import type { IconProps } from './Icon'
-import { Text } from './Text'
-import { useAppTheme } from '../services/theme'
 import type { ThemedStyle } from '../services/theme'
+import { useAppTheme } from '../services/theme'
+import type { IconProps } from './Icon'
+import { Icon } from './Icon'
+import type { TextProps } from './Text'
+import { Text } from './Text'
 
 interface ButtonProps extends Omit<PressableProps, 'children'> {
   /**
    * The text to display.
    */
-  text?: string
+  text?: TextProps['text']
+  /**
+   * The text to display.
+   */
+  tx?: TextProps['tx']
   /**
    * The icon to be displayed before the text.
    */
@@ -31,8 +36,11 @@ interface ButtonProps extends Omit<PressableProps, 'children'> {
 }
 
 export const Button = (props: ButtonProps) => {
-  const { text, icon, style: $faceOverride, ...RestPressableProps } = props
-  const { theme: { colors }, themed } = useAppTheme()
+  const { text, tx, icon, style: $faceOverride, ...RestPressableProps } = props
+  const {
+    theme: { colors },
+    themed,
+  } = useAppTheme()
 
   const $reflectionStyle: PressableProps['style'] = state => [
     themed($reflection),
@@ -62,7 +70,12 @@ export const Button = (props: ButtonProps) => {
           <View style={$faceStyle(state)}>
             {!!icon && <Icon name={icon} size={18} color={iconColor(state)} />}
 
-            <Text preset="label1" text={text} style={$textStyle(state)} />
+            <Text
+              preset="label1"
+              text={text}
+              tx={tx}
+              style={$textStyle(state)}
+            />
           </View>
         </>
       )}

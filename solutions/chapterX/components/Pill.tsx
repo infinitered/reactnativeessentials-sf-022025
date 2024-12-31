@@ -1,11 +1,12 @@
 import React from 'react'
-import { View } from 'react-native'
 import type { TextStyle, ViewStyle } from 'react-native'
+import { View } from 'react-native'
 
 import { sizes } from '../../../shared/theme'
-import { Text } from './Text'
-import { useAppTheme } from '../services/theme'
+import { isRTL } from '../services/i18n'
 import type { ThemedStyle } from '../services/theme'
+import { useAppTheme } from '../services/theme'
+import { Text } from './Text'
 
 interface PillProps {
   text: string
@@ -22,7 +23,7 @@ export const Pill = (props: PillProps) => {
 
 const $pill: ThemedStyle<ViewStyle> = ({ colors }) => ({
   alignItems: 'center',
-  alignSelf: 'flex-start',
+  alignSelf: isRTL ? 'flex-end' : 'flex-start',
   backgroundColor: colors.background.accent,
   borderColor: colors.border.base,
   borderRadius: sizes.radius.md,

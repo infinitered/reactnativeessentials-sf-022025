@@ -1,10 +1,3 @@
-import notifee, {
-  AndroidImportance,
-  AndroidNotificationSetting,
-  AuthorizationStatus,
-  EventType,
-  TriggerType,
-} from '@notifee/react-native'
 import type {
   AndroidChannel,
   EventDetail,
@@ -13,8 +6,15 @@ import type {
   Notification,
   TimestampTrigger,
 } from '@notifee/react-native'
-import { useNavigation } from '@react-navigation/native'
+import notifee, {
+  AndroidImportance,
+  AndroidNotificationSetting,
+  AuthorizationStatus,
+  EventType,
+  TriggerType,
+} from '@notifee/react-native'
 import type { NavigationHelpers } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { useEffect } from 'react'
 import { Platform } from 'react-native'
 

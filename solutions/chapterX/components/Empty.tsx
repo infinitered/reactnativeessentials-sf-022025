@@ -1,16 +1,25 @@
 import React from 'react'
-import { View } from 'react-native'
+import { useTranslation } from 'react-i18next'
 import type { TextStyle, ViewStyle } from 'react-native'
+import { View } from 'react-native'
 
 import { sizes } from '../../../shared/theme'
-import { Icon } from './Icon'
-import type { IconProps } from './Icon'
-import { Text } from './Text'
-import { useAppTheme } from '../services/theme'
+import { isRTL } from '../services/i18n'
 import type { ThemedStyle } from '../services/theme'
+import { useAppTheme } from '../services/theme'
+import type { IconProps } from './Icon'
+import { Icon } from './Icon'
+import { Text, TextProps } from './Text'
 
-export const Empty = (props: { text?: string; icon?: IconProps['name'] }) => {
-  const { theme: { colors }, themed } = useAppTheme()
+export const Empty = (props: {
+  tx?: TextProps['tx']
+  icon?: IconProps['name']
+}) => {
+  const {
+    theme: { colors },
+    themed,
+  } = useAppTheme()
+  const { t } = useTranslation()
   return (
     <View style={$emptyContentWrapper}>
       <Icon
@@ -20,7 +29,7 @@ export const Empty = (props: { text?: string; icon?: IconProps['name'] }) => {
       />
       <Text
         preset="display"
-        text={props.text ?? "There's\nNothing Here..."}
+        tx={props.tx ?? t('common:theresNothingHere')}
         style={themed($emptyText)}
       />
     </View>
@@ -28,7 +37,7 @@ export const Empty = (props: { text?: string; icon?: IconProps['name'] }) => {
 }
 
 const $emptyContentWrapper: ViewStyle = {
-  flexDirection: 'row',
+  flexDirection: isRTL ? 'row-reverse' : 'row',
   paddingVertical: sizes.spacing.xl,
 }
 
