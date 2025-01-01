@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
-import { DevSettings, Platform } from 'react-native'
 import type { TextStyle } from 'react-native'
+import { DevSettings, Platform } from 'react-native'
 import { MMKV } from 'react-native-mmkv'
 
 import { Text } from '../../solutions/chapter7/components/Text'
@@ -21,7 +21,6 @@ const appModes = [
   { label: 'Chapter 7', value: 'chapter7' },
   { label: 'Chapter 8', value: 'chapter8' },
   { label: 'Chapter 9', value: 'chapter9' },
-  { label: 'Chapter X', value: 'chapterX' },
 ] as const
 
 export function setupTrainingAppModeSelector() {

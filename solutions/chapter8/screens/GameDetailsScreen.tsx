@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Image, ScrollView, View } from 'react-native'
 import type { ImageStyle, TextStyle, ViewStyle } from 'react-native'
+import { Image, ScrollView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { api } from '../../../shared/services/api'
@@ -14,8 +14,8 @@ import { Switch } from '../components/Switch'
 import { Text } from '../components/Text'
 import type { ScreenProps } from '../navigators/AppNavigator'
 import { useGlobalState } from '../services/state'
-import { useAppTheme } from '../services/theme'
 import type { ThemedStyle } from '../services/theme'
+import { useAppTheme } from '../services/theme'
 
 interface ReviewsProps {
   gameId: number
@@ -27,7 +27,7 @@ export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
   const { bottom: paddingBottom } = useSafeAreaInsets()
   const gameId = route.params.gameId
   const state = useGlobalState()
-  const reviews = gameId ? state.reviews[gameId] ?? [] : []
+  const reviews = gameId ? (state.reviews[gameId] ?? []) : []
 
   const { favorites, toggleFavorite } = useGlobalState()
   const [game, setGame] = useState<Game | undefined>()

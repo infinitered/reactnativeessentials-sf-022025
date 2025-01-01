@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
-import { TextInput, View } from 'react-native'
 import type { TextStyle, ViewStyle } from 'react-native'
+import { TextInput, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { colors, fonts, sizes } from '../../../shared/theme'

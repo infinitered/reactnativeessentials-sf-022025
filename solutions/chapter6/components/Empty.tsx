@@ -1,10 +1,10 @@
 import React from 'react'
-import { View } from 'react-native'
 import type { TextStyle, ViewStyle } from 'react-native'
+import { View } from 'react-native'
 
 import { colors, sizes } from '../../../shared/theme'
-import { Icon } from './Icon'
 import type { IconProps } from './Icon'
+import { Icon } from './Icon'
 import { Text } from './Text'
 
 export const Empty = (props: { text?: string; icon?: IconProps['name'] }) => {

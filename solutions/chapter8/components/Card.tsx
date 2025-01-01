@@ -1,12 +1,12 @@
 import React from 'react'
-import { Image, Pressable, View } from 'react-native'
 import type { ImageStyle, ViewStyle } from 'react-native'
+import { Image, Pressable, View } from 'react-native'
 
 import { sizes } from '../../../shared/theme'
+import type { ThemedStyle } from '../services/theme'
+import { useAppTheme } from '../services/theme'
 import { Rating } from './Rating'
 import { Text } from './Text'
-import { useAppTheme } from '../services/theme'
-import type { ThemedStyle } from '../services/theme'
 
 interface CardProps {
   name: string

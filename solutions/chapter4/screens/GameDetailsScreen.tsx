@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Image, ScrollView, View } from 'react-native'
 import type { ImageStyle, TextStyle, ViewStyle } from 'react-native'
+import { Image, ScrollView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { api } from '../../../shared/services/api'

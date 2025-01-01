@@ -9,7 +9,6 @@ import { GlobalStateProvider } from './services/state'
 import { useThemeProvider } from './services/theme'
 
 const App = (): React.JSX.Element | null => {
-
   const { themeScheme, ThemeProvider } = useThemeProvider()
 
   return (

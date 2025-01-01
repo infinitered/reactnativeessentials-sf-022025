@@ -1,10 +1,6 @@
 import React from 'react'
 import type { ImageStyle, ViewStyle } from 'react-native'
-import {
-  Image,
-  Pressable,
-  View,
-} from 'react-native'
+import { Image, Pressable, View } from 'react-native'
 
 import { colors, sizes } from '../../../shared/theme'
 import { Icon } from './Icon'

@@ -1,11 +1,11 @@
 import React from 'react'
-import { View } from 'react-native'
 import type { TextStyle, ViewStyle } from 'react-native'
+import { View } from 'react-native'
 
 import { sizes } from '../../../shared/theme'
-import { Text } from './Text'
-import { useAppTheme } from '../services/theme'
 import type { ThemedStyle } from '../services/theme'
+import { useAppTheme } from '../services/theme'
+import { Text } from './Text'
 
 interface PillProps {
   text: string
