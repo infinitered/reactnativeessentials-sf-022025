@@ -1,10 +1,14 @@
 import React from 'react'
+import type {
+  StyleProp,
+  TextProps as RNTextProps,
+  TextStyle,
+} from 'react-native'
 import { Text as RNText } from 'react-native'
-import type { StyleProp, TextProps as RNTextProps, TextStyle } from 'react-native'
 
 import { fonts } from '../../../shared/theme'
-import { useAppTheme } from '../services/theme'
 import type { ThemedStyle } from '../services/theme'
+import { useAppTheme } from '../services/theme'
 
 interface TextProps extends RNTextProps {
   /**
@@ -38,7 +42,9 @@ export const Text = (props: TextProps) => {
   )
 }
 
-const $base: ThemedStyle<TextStyle> = ({ colors }) => ({ color: colors.text.base })
+const $base: ThemedStyle<TextStyle> = ({ colors }) => ({
+  color: colors.text.base,
+})
 
 const $presets = {
   display: { fontSize: 36, lineHeight: 44, fontFamily: fonts.primary.regular },

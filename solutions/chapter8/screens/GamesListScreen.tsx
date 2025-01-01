@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { SectionList, View } from 'react-native'
 import type { ViewStyle } from 'react-native'
+import { SectionList, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { api } from '../../../shared/services/api'
@@ -13,8 +13,8 @@ import { Pill } from '../components/Pill'
 import { Switch } from '../components/Switch'
 import { Text } from '../components/Text'
 import { useGlobalState } from '../services/state'
-import { useAppTheme } from '../services/theme'
 import type { ThemedStyle } from '../services/theme'
+import { useAppTheme } from '../services/theme'
 
 function useGameData() {
   const { favorites, games, setGames } = useGlobalState()

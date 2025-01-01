@@ -12,8 +12,8 @@ import { MMKV } from 'react-native-mmkv'
 
 import { colors, fonts, sizes } from '../../../shared/theme'
 import { safeParse } from '../../../shared/utils/object'
-import { Icon } from '../components/Icon'
 import type { IconProps } from '../components/Icon'
+import { Icon } from '../components/Icon'
 import { GameDetailsScreen } from '../screens/GameDetailsScreen'
 import { GamesListScreen } from '../screens/GamesListScreen'
 

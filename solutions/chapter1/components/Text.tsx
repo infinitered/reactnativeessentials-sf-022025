@@ -1,5 +1,9 @@
 import React from 'react'
-import type { StyleProp, TextProps as RNTextProps, TextStyle } from 'react-native'
+import type {
+  StyleProp,
+  TextProps as RNTextProps,
+  TextStyle,
+} from 'react-native'
 import { Text as RNText } from 'react-native'
 
 import { colors, fonts } from '../../../shared/theme'

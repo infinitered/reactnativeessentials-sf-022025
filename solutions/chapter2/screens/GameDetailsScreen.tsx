@@ -1,6 +1,6 @@
 import React from 'react'
-import { View } from 'react-native'
 import type { ViewStyle } from 'react-native'
+import { View } from 'react-native'
 
 import { colors } from '../../../shared/theme'
 import { Text } from '../components/Text'

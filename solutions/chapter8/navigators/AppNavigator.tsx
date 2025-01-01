@@ -1,15 +1,15 @@
 import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
-import { Platform, Pressable } from 'react-native'
 import type { ViewStyle } from 'react-native'
+import { Platform, Pressable } from 'react-native'
 import { MMKV } from 'react-native-mmkv'
 
 import { fonts, sizes } from '../../../shared/theme'
 import { safeParse } from '../../../shared/utils/object'
-import { Icon } from '../components/Icon'
 import type { IconProps } from '../components/Icon'
+import { Icon } from '../components/Icon'
 import { GameDetailsScreen } from '../screens/GameDetailsScreen'
 import { GamesListScreen } from '../screens/GamesListScreen'
 import { ReviewScreen } from '../screens/ReviewScreen'
@@ -52,7 +52,9 @@ declare global {
 const Stack = createNativeStackNavigator<AppStackParamList>()
 
 function renderIconButton(props: IconProps & { onPress?: () => void }) {
-  const { theme: { colors } } = useAppTheme()
+  const {
+    theme: { colors },
+  } = useAppTheme()
   const {
     name,
     onPress,
@@ -71,7 +73,9 @@ function renderIconButton(props: IconProps & { onPress?: () => void }) {
 }
 
 const AppStack = () => {
-  const { theme: { colors } } = useAppTheme()
+  const {
+    theme: { colors },
+  } = useAppTheme()
   return (
     <Stack.Navigator
       initialRouteName="GamesList"

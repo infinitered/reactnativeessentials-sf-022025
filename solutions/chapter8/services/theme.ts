@@ -1,8 +1,20 @@
+import {
+  DarkTheme,
+  DefaultTheme,
+  useTheme as useNavTheme,
+} from '@react-navigation/native'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import type { StyleProp } from 'react-native'
 import { Appearance, useColorScheme } from 'react-native'
+
 import { changeHexAlpha, colors as lightColors } from '../../../shared/theme'
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { DarkTheme, DefaultTheme, useTheme as useNavTheme } from '@react-navigation/native'
 
 const darkColors = {
   background: {
@@ -35,7 +47,7 @@ const darkColors = {
 } as const
 
 // This supports "light" and "dark" themes by default. If undefined, it'll use the system theme
-export type ThemeContexts = "light" | "dark" | undefined
+export type ThemeContexts = 'light' | 'dark' | undefined
 
 // Because we have two themes, we need to define the types for each of them.
 // colorsLight and colorsDark should have the same keys, but different values.
@@ -91,18 +103,22 @@ export const ThemeContext = createContext<ThemeContextType>({
 
 export const useThemeProvider = () => {
   const colorScheme = useColorScheme()
-  const [overrideTheme, setTheme] = useState<ThemeContexts>(Appearance.getColorScheme() ?? undefined)
+  const [overrideTheme, setTheme] = useState<ThemeContexts>(
+    Appearance.getColorScheme() ?? undefined,
+  )
 
-  useEffect(()  => {
-    const subscription = Appearance.addChangeListener(({ colorScheme }) => {
-      setTheme(colorScheme ?? undefined)
-    })
+  useEffect(() => {
+    const subscription = Appearance.addChangeListener(
+      ({ colorScheme: scheme }) => {
+        setTheme(scheme ?? undefined)
+      },
+    )
 
     return () => subscription.remove()
   }, [])
 
-  const themeScheme = overrideTheme || colorScheme || "light"
-  const navigationTheme = themeScheme === "dark" ? DarkTheme : DefaultTheme
+  const themeScheme = overrideTheme || colorScheme || 'light'
+  const navigationTheme = themeScheme === 'dark' ? DarkTheme : DefaultTheme
 
   return {
     themeScheme,
@@ -120,7 +136,7 @@ interface UseAppThemeValue {
   themeContext: ThemeContexts
   // A function to apply the theme to a style object.
   themed: <T>(
-    styleOrStyleFn: ThemedStyle<T> | StyleProp<T> | ThemedStyleArray<T>
+    styleOrStyleFn: ThemedStyle<T> | StyleProp<T> | ThemedStyleArray<T>,
   ) => T
 }
 
@@ -134,31 +150,31 @@ export const useAppTheme = (): UseAppThemeValue => {
   const navTheme = useNavTheme()
   const context = useContext(ThemeContext)
   if (!context) {
-    throw new Error("useTheme must be used within a ThemeProvider")
+    throw new Error('useTheme must be used within a ThemeProvider')
   }
 
   const { themeScheme: overrideTheme } = context
 
   const themeContext: ThemeContexts = useMemo(
-    () => overrideTheme || (navTheme.dark ? "dark" : "light"),
-    [overrideTheme, navTheme]
+    () => overrideTheme || (navTheme.dark ? 'dark' : 'light'),
+    [overrideTheme, navTheme],
   )
 
   const themeVariant: Theme = useMemo(
-    () => (themeContext === "dark" ? darkTheme : lightTheme),
-    [themeContext]
+    () => (themeContext === 'dark' ? darkTheme : lightTheme),
+    [themeContext],
   )
 
   const themed = useCallback(
-    <T,>(
-      styleOrStyleFn: ThemedStyle<T> | StyleProp<T> | ThemedStyleArray<T>
+    <T>(
+      styleOrStyleFn: ThemedStyle<T> | StyleProp<T> | ThemedStyleArray<T>,
     ) => {
       const flatStyles = [styleOrStyleFn].flat(3) as (
         | ThemedStyle<T>
         | StyleProp<T>
       )[]
-      const stylesArray = flatStyles.map((f) => {
-        if (typeof f === "function") {
+      const stylesArray = flatStyles.map(f => {
+        if (typeof f === 'function') {
           return (f as ThemedStyle<T>)(themeVariant)
         } else {
           return f
@@ -168,7 +184,7 @@ export const useAppTheme = (): UseAppThemeValue => {
       // Flatten the array of styles into a single object
       return Object.assign({}, ...stylesArray) as T
     },
-    [themeVariant]
+    [themeVariant],
   )
 
   return {

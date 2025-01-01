@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
-import { DevSettings, Platform } from 'react-native'
 import type { TextStyle } from 'react-native'
+import { DevSettings, Platform } from 'react-native'
 import { MMKV } from 'react-native-mmkv'
 
 import { Text } from '../../solutions/chapter7/components/Text'

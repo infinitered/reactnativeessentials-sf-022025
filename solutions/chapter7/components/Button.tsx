@@ -1,5 +1,4 @@
 import React from 'react'
-import { Pressable, View } from 'react-native'
 import type {
   PressableProps,
   PressableStateCallbackType,
@@ -7,10 +6,11 @@ import type {
   TextStyle,
   ViewStyle,
 } from 'react-native'
+import { Pressable, View } from 'react-native'
 
 import { colors, sizes } from '../../../shared/theme'
-import { Icon } from './Icon'
 import type { IconProps } from './Icon'
+import { Icon } from './Icon'
 import { Text } from './Text'
 
 interface ButtonProps extends Omit<PressableProps, 'children'> {

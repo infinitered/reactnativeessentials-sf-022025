@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
-import { TextInput, View } from 'react-native'
 import type { TextStyle, ViewStyle } from 'react-native'
+import { TextInput, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { fonts, sizes } from '../../../shared/theme'
@@ -8,11 +8,14 @@ import { Button } from '../components/Button'
 import { Text } from '../components/Text'
 import type { ScreenProps } from '../navigators/AppNavigator'
 import { useGlobalState } from '../services/state'
-import { useAppTheme } from '../services/theme'
 import type { ThemedStyle } from '../services/theme'
+import { useAppTheme } from '../services/theme'
 
 export const ReviewScreen = ({ navigation, route }: ScreenProps<'Review'>) => {
-  const { theme: { colors }, themed } = useAppTheme()
+  const {
+    theme: { colors },
+    themed,
+  } = useAppTheme()
   const { top: paddingTop } = useSafeAreaInsets()
   const [value, setValue] = useState('')
 
