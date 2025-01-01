@@ -3,18 +3,18 @@ import {
   DefaultTheme,
   NavigationContainer,
 } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React, { useEffect } from 'react'
-import { Platform, Pressable, useColorScheme } from 'react-native'
 import type { ViewStyle } from 'react-native'
+import { Platform, Pressable, useColorScheme } from 'react-native'
 import { MMKV } from 'react-native-mmkv'
 
 import { colors, fonts, sizes } from '../../../shared/theme'
 import { getObjectKeys, safeParse } from '../../../shared/utils/object'
 import { useAppState } from '../../../shared/utils/useAppState'
-import { Icon } from '../components/Icon'
 import type { IconProps } from '../components/Icon'
+import { Icon } from '../components/Icon'
 import { GameDetailsScreen } from '../screens/GameDetailsScreen'
 import { GamesListScreen } from '../screens/GamesListScreen'
 import { ReviewScreen } from '../screens/ReviewScreen'

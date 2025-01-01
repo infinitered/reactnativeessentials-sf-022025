@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Image, ScrollView, View } from 'react-native'
 import type { ImageStyle, TextStyle, ViewStyle } from 'react-native'
+import { Image, ScrollView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { api } from '../../../shared/services/api'
@@ -24,7 +24,7 @@ export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
   const { bottom: paddingBottom } = useSafeAreaInsets()
   const gameId = route.params.gameId
   const state = useGlobalState()
-  const reviews = gameId ? state.reviews[gameId] ?? [] : []
+  const reviews = gameId ? (state.reviews[gameId] ?? []) : []
 
   const { favorites, toggleFavorite } = useGlobalState()
   const [game, setGame] = useState<Game | undefined>()
