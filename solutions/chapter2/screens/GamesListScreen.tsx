@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { ScrollView } from 'react-native'
 import type { ViewStyle } from 'react-native'
+import { ScrollView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { colors, sizes } from '../../../shared/theme'
