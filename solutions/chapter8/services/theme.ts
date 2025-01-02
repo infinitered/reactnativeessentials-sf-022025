@@ -22,7 +22,7 @@ const darkColors = {
     secondary: '#1a1a1a',
     accent: '#099faa',
     accentMuted: '#f8baf7',
-    brand: '#d4f20d',
+    brand: '#586600',
     reflection: '#ffffff',
     transparent: '#000000',
   },
@@ -31,7 +31,7 @@ const darkColors = {
     accent: '#f8baf7',
     brand: '#d4f20d',
     baseMuted: '#4d4d4d',
-    overlay: '#000000',
+    overlay: '#ffffff',
   },
   tint: {
     accent: '#e61920',
