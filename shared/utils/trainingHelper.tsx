@@ -21,6 +21,7 @@ const appModes = [
   { label: 'Chapter 7', value: 'chapter7' },
   { label: 'Chapter 8', value: 'chapter8' },
   { label: 'Chapter 9', value: 'chapter9' },
+  { label: 'Chapter 10', value: 'chapter10' },
 ] as const
 
 export function setupTrainingAppModeSelector() {
