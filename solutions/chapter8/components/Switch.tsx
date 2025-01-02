@@ -2,7 +2,7 @@ import React from 'react'
 import type { ViewStyle } from 'react-native'
 import { Switch as RNSwitch, View } from 'react-native'
 
-import { colors } from '../../../shared/theme'
+import { useAppTheme } from '../services/theme'
 
 interface SwitchProps {
   on: boolean
@@ -11,6 +11,9 @@ interface SwitchProps {
 
 export const Switch = (props: SwitchProps) => {
   const { on, onToggle } = props
+  const {
+    theme: { colors },
+  } = useAppTheme()
   return (
     <View style={$container}>
       <RNSwitch

@@ -1,33 +1,19 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  NavigationContainer,
-} from '@react-navigation/native'
+import { NavigationContainer } from '@react-navigation/native'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import React, { useEffect } from 'react'
+import React from 'react'
 import type { ViewStyle } from 'react-native'
-import { Platform, Pressable, useColorScheme } from 'react-native'
+import { Platform, Pressable } from 'react-native'
 import { MMKV } from 'react-native-mmkv'
 
-import { colors, fonts, sizes } from '../../../shared/theme'
-import { getObjectKeys, safeParse } from '../../../shared/utils/object'
-import { useAppState } from '../../../shared/utils/useAppState'
+import { fonts, sizes } from '../../../shared/theme'
+import { safeParse } from '../../../shared/utils/object'
 import type { IconProps } from '../components/Icon'
 import { Icon } from '../components/Icon'
 import { GameDetailsScreen } from '../screens/GameDetailsScreen'
 import { GamesListScreen } from '../screens/GamesListScreen'
 import { ReviewScreen } from '../screens/ReviewScreen'
-import {
-  cancelScheduledNotifications,
-  NotificationCategory,
-  NotificationChannel,
-  NotificationPressAction,
-  NotificationType,
-  scheduleLocalNotification,
-  useNotificationEvents,
-} from '../services/notifications'
-import { useGlobalState } from '../services/state'
+import { useAppTheme, useThemeProvider } from '../services/theme'
 
 const storage = new MMKV({ id: '@RNEssentials/navigation/state' })
 
@@ -67,6 +53,9 @@ const Stack = createNativeStackNavigator<AppStackParamList>()
 
 function renderIconButton(props: IconProps & { onPress?: () => void }) {
   const {
+    theme: { colors },
+  } = useAppTheme()
+  const {
     name,
     onPress,
     color = colors.tint.base,
@@ -84,8 +73,9 @@ function renderIconButton(props: IconProps & { onPress?: () => void }) {
 }
 
 const AppStack = () => {
-  useNotificationEvents()
-
+  const {
+    theme: { colors },
+  } = useAppTheme()
   return (
     <Stack.Navigator
       initialRouteName="GamesList"
@@ -133,60 +123,12 @@ const AppStack = () => {
 }
 
 export const AppNavigator = (props: NavigationProps) => {
-  const colorScheme = useColorScheme()
-  const appState = useAppState()
-
-  const { favorites, reviews, games } = useGlobalState()
-
-  useEffect(() => {
-    if (appState === 'background') {
-      const reviewsIds = getObjectKeys(reviews).map(Number)
-
-      const game = games.find(
-        g => favorites.includes(g.id) && !reviewsIds.includes(g.id),
-      )
-
-      if (!game) return
-
-      scheduleLocalNotification(
-        {
-          title: `Please Review: ${game.name}`,
-          body: 'Looks like you enjoyed this game! Please leave a review!',
-          data: {
-            notificationType: NotificationType.GameReview,
-            gameId: game.id,
-            gameName: game.name,
-          },
-          ios: {
-            categoryId: NotificationCategory.GameReview,
-          },
-          android: {
-            channelId: NotificationChannel.Default,
-            smallIcon: 'ic_notification_default',
-            color: colors.text.accent,
-            pressAction: { id: 'default' },
-            actions: [
-              {
-                title: 'Review Game',
-                input: true, // Android 14 has issues with input quick actions: https://github.com/invertase/notifee/issues/1002
-                pressAction: { id: NotificationPressAction.SubmitReview },
-              },
-            ],
-          },
-        },
-        5000,
-      )
-    }
-
-    return () => {
-      cancelScheduledNotifications()
-    }
-  }, [appState, favorites, reviews, games])
+  const { navigationTheme } = useThemeProvider()
 
   return (
     <NavigationContainer
       initialState={initNavigation}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+      theme={navigationTheme}
       onStateChange={state => storage.set('state', JSON.stringify(state))}
       {...props}>
       <AppStack />
