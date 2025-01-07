@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e 
 
-./scripts/setup/verify-environment
+./scripts/verify-environment
 
 yarn
