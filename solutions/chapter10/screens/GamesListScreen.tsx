@@ -66,15 +66,20 @@ export const GamesListScreen = () => {
     setFilterFavorites,
   } = useGameData()
   const { themed } = useAppTheme()
+  const toggleFavoritesFilter = () => {
+    setFilterFavorites(!filterFavorites)
+  }
 
   return (
     <>
-      <View style={themed($favoritesFilter)}>
+      <View
+        style={themed($favoritesFilter)}
+        accessible
+        accessibilityRole="switch"
+        accessibilityState={{ checked: filterFavorites }}
+        onAccessibilityTap={toggleFavoritesFilter}>
         <Text preset="title1" tx={'gamesListScreen:showFavorites'} />
-        <Switch
-          on={filterFavorites}
-          onToggle={() => setFilterFavorites(!filterFavorites)}
-        />
+        <Switch on={filterFavorites} onToggle={toggleFavoritesFilter} />
       </View>
       <SectionList
         sections={games}
