@@ -39,7 +39,7 @@ For the full instructions on how to setup your environment for React Native deve
 1. Run the project setup script:
 
 ```bash
-yarn setup
+./scripts/setup
 ```
 
 2. Start the metro bundler:

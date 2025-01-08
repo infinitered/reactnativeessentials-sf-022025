@@ -50,7 +50,6 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-ReactNativeEssentials.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ReactNativeEssentials.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		890FFAE513A74A94B3842BD7 /* Oxanium-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Oxanium-SemiBold.ttf"; path = "../shared/assets/fonts/Oxanium-SemiBold.ttf"; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-ReactNativeEssentials-ReactNativeEssentialsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeEssentials-ReactNativeEssentialsTests.release.xcconfig"; path = "Target Support Files/Pods-ReactNativeEssentials-ReactNativeEssentialsTests/Pods-ReactNativeEssentials-ReactNativeEssentialsTests.release.xcconfig"; sourceTree = "<group>"; };
-		BE06CD382B51E0FF007DB70F /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		BE4785292B4B527900CD651C /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = ReactNativeEssentials/BootSplash.storyboard; sourceTree = "<group>"; };
 		D6D2468AB29D46298A3D6EEE /* Oxanium-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Oxanium-Bold.ttf"; path = "../shared/assets/fonts/Oxanium-Bold.ttf"; sourceTree = "<group>"; };
 		EAD29E99093D4DD3BF92E801 /* Oxanium-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Oxanium-Medium.ttf"; path = "../shared/assets/fonts/Oxanium-Medium.ttf"; sourceTree = "<group>"; };
@@ -97,7 +96,6 @@
 		13B07FAE1A68108700A75B9A /* ReactNativeEssentials */ = {
 			isa = PBXGroup;
 			children = (
-				BE06CD382B51E0FF007DB70F /* Feather.ttf */,
 				BE4785292B4B527900CD651C /* BootSplash.storyboard */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
