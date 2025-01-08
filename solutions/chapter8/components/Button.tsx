@@ -1,5 +1,4 @@
 import React from 'react'
-import { Pressable, View } from 'react-native'
 import type {
   PressableProps,
   PressableStateCallbackType,
@@ -7,13 +6,14 @@ import type {
   TextStyle,
   ViewStyle,
 } from 'react-native'
+import { Pressable, View } from 'react-native'
 
 import { sizes } from '../../../shared/theme'
-import { Icon } from './Icon'
-import type { IconProps } from './Icon'
-import { Text } from './Text'
-import { useAppTheme } from '../services/theme'
 import type { ThemedStyle } from '../services/theme'
+import { useAppTheme } from '../services/theme'
+import type { IconProps } from './Icon'
+import { Icon } from './Icon'
+import { Text } from './Text'
 
 interface ButtonProps extends Omit<PressableProps, 'children'> {
   /**
@@ -32,7 +32,10 @@ interface ButtonProps extends Omit<PressableProps, 'children'> {
 
 export const Button = (props: ButtonProps) => {
   const { text, icon, style: $faceOverride, ...RestPressableProps } = props
-  const { theme: { colors }, themed } = useAppTheme()
+  const {
+    theme: { colors },
+    themed,
+  } = useAppTheme()
 
   const $reflectionStyle: PressableProps['style'] = state => [
     themed($reflection),
