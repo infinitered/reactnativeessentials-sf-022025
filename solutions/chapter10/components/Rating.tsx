@@ -37,9 +37,14 @@ export const Rating = ({ rating, ratingsCount }: RatingProps) => {
           }}
         />
       </Text>
-      {Array.from({ length: rating }).map((_, i) => (
-        <Icon color={colors.tint.accent} key={i} name="star" />
-      ))}
+      <View
+        style={$starContainer}
+        accessible
+        accessibilityLabel={`${rating} stars`}>
+        {Array.from({ length: rating }).map((_, i) => (
+          <Icon color={colors.tint.accent} key={i} name="star" />
+        ))}
+      </View>
     </View>
   )
 }
@@ -48,6 +53,10 @@ const $container: ViewStyle = {
   flexDirection: isRTL ? 'row-reverse' : 'row',
   columnGap: sizes.spacing.xs,
   alignItems: 'center',
+}
+
+const $starContainer: ViewStyle = {
+  flexDirection: isRTL ? 'row-reverse' : 'row',
 }
 
 const $label: TextStyle = {
