@@ -1,21 +1,26 @@
 import React from 'react'
-import type { ViewStyle } from 'react-native'
+import type { AccessibilityProps, ViewStyle } from 'react-native'
 import { Switch as RNSwitch, View } from 'react-native'
 
 import { useAppTheme } from '../services/theme'
 
-interface SwitchProps {
+interface SwitchProps extends AccessibilityProps {
   on: boolean
   onToggle: () => void
 }
 
 export const Switch = (props: SwitchProps) => {
-  const { on, onToggle } = props
+  const { on, onToggle, ...accessibilityProps } = props
   const {
     theme: { colors },
   } = useAppTheme()
+
   return (
-    <View style={$container}>
+    <View
+      style={$container}
+      {...accessibilityProps}
+      accessibilityRole="switch"
+      accessibilityState={{ checked: on }}>
       <RNSwitch
         ios_backgroundColor={
           on ? colors.background.accent : colors.background.accentMuted
