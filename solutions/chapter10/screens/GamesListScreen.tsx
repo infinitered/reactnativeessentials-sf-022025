@@ -77,7 +77,6 @@ export const GamesListScreen = () => {
       >
         <Text preset="title1" tx={'gamesListScreen:showFavorites'} />
         <Switch
-          accessible
           accessibilityLabel="Show only favorites"
           on={filterFavorites}
           onToggle={toggleFavoritesFilter}
