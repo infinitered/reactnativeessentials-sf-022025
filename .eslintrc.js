@@ -20,6 +20,7 @@ module.exports = {
       {
         argsIgnorePattern: '^_',
         varsIgnorePattern: '^_',
+        caughtErrors: 'none',
       },
     ],
   },

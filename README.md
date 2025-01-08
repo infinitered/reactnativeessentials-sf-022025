@@ -13,7 +13,12 @@ Table of contents (subject to change):
 3. Navigating the App
 4. Filling in the List (working with lists and api data)
 5. Responding to Touches (pressables and inputs)
-6. Wrap-up & Q&A
+6. Blending in with Surroundings (Light/Dark mode)
+7. Internationalize All the Things (Including Right-to-Left)
+8. Accessibility essentials
+9. Native Modules and New Architecture Discussion
+10. Continuing Education Resources
+11. Wrap-up & Q&A
 
 ---
 
@@ -34,7 +39,7 @@ For the full instructions on how to setup your environment for React Native deve
 1. Run the project setup script:
 
 ```bash
-yarn setup
+./scripts/setup
 ```
 
 2. Start the metro bundler:
