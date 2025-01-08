@@ -15,7 +15,7 @@ import { GameDetailsScreen } from '../screens/GameDetailsScreen'
 import { GamesListScreen } from '../screens/GamesListScreen'
 import { ReviewScreen } from '../screens/ReviewScreen'
 import { isRTL } from '../services/i18n'
-import { useAppTheme, useThemeProvider } from '../services/theme'
+import { Theme, useAppTheme, useThemeProvider } from '../services/theme'
 
 const storage = new MMKV({ id: '@RNEssentials/navigation/state' })
 
@@ -53,14 +53,14 @@ declare global {
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
 const Stack = createNativeStackNavigator<AppStackParamList>()
 
-function renderIconButton(props: IconProps & { onPress?: () => void }) {
-  const {
-    theme: { colors },
-  } = useAppTheme()
+function renderIconButton(
+  props: IconProps & { onPress?: () => void; theme: Theme },
+) {
   const {
     name,
+    theme,
     onPress,
-    color = colors.tint.base,
+    color = theme.colors.tint.base,
     size = Platform.select({ ios: 24, android: 30 }),
   } = props
 
@@ -76,6 +76,7 @@ function renderIconButton(props: IconProps & { onPress?: () => void }) {
 
 const AppStack = () => {
   const {
+    theme,
     theme: { colors },
   } = useAppTheme()
   const { t } = useTranslation(['gamesListScreen'])
@@ -91,6 +92,7 @@ const AppStack = () => {
         headerLeft: ({ canGoBack }) =>
           renderIconButton({
             name: isRTL ? 'arrow-right-circle' : 'arrow-left-circle',
+            theme,
             onPress: canGoBack ? navigation.goBack : undefined,
           }),
         headerStyle: {

@@ -15,7 +15,7 @@ import { GameDetailsScreen } from '../screens/GameDetailsScreen'
 import { GamesListScreen } from '../screens/GamesListScreen'
 import { ReviewScreen } from '../screens/ReviewScreen'
 import { isRTL } from '../services/i18n'
-import { useAppTheme, useThemeProvider } from '../services/theme'
+import { Theme, useAppTheme, useThemeProvider } from '../services/theme'
 
 const storage = new MMKV({ id: '@RNEssentials/navigation/state' })
 
