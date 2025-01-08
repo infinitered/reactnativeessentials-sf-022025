@@ -1,5 +1,5 @@
 import VectorIcon from '@react-native-vector-icons/feather'
-import React from 'react'
+import React, { ComponentProps } from 'react'
 
 import { useAppTheme } from '../services/theme'
 
