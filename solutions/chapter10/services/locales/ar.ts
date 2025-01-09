@@ -7,9 +7,11 @@ const ar: Translations = {
   },
   gamesListScreen: {
     showFavorites: 'عرض المفضلة',
+    showFavoritesA11yLabel: 'إظهار المفضلة فقط',
     retroGames: 'ألعاب قديمة',
     rating: 'التقييم<Ratings />:',
     ratings: ' ({{count}} تقييمات)',
+    ratingA11yLabel: '{{rating}} نجوم',
   },
   reviewScreen: {
     writeAReview: 'اكتب مراجعة',
