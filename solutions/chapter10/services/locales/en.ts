@@ -5,9 +5,11 @@ const en = {
   },
   gamesListScreen: {
     showFavorites: 'Show Favorites',
+    showFavoritesA11yLabel: 'Show Only Favorites',
     retroGames: 'Retro Games',
     rating: 'Rating<Ratings />:',
     ratings: ' ({{count}} ratings)',
+    ratingA11yLabel: '{{rating}} stars',
   },
   reviewScreen: {
     writeAReview: 'Write a Review',

@@ -3,7 +3,7 @@ import type { TextStyle, ViewStyle } from 'react-native'
 import { View } from 'react-native'
 
 import { sizes } from '../../../shared/theme'
-import { isRTL, Trans } from '../services/i18n'
+import { isRTL, Trans, useTranslation } from '../services/i18n'
 import { useAppTheme } from '../services/theme'
 import { Icon } from './Icon'
 import { Text } from './Text'
@@ -17,6 +17,7 @@ export const Rating = ({ rating, ratingsCount }: RatingProps) => {
   const {
     theme: { colors },
   } = useAppTheme()
+  const { t } = useTranslation()
 
   return (
     <View style={$container}>
@@ -40,7 +41,7 @@ export const Rating = ({ rating, ratingsCount }: RatingProps) => {
       <View
         style={$starContainer}
         accessible
-        accessibilityLabel={`${rating} stars`}>
+        accessibilityLabel={t('gamesListScreen:ratingA11yLabel', { rating })}>
         {Array.from({ length: rating }).map((_, i) => (
           <Icon color={colors.tint.accent} key={i} name="star" />
         ))}

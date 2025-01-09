@@ -12,7 +12,7 @@ import { Empty } from '../components/Empty'
 import { Pill } from '../components/Pill'
 import { Switch } from '../components/Switch'
 import { Text } from '../components/Text'
-import { isRTL } from '../services/i18n'
+import { isRTL, useTranslation } from '../services/i18n'
 import { useGlobalState } from '../services/state'
 import type { ThemedStyle } from '../services/theme'
 import { useAppTheme } from '../services/theme'
@@ -66,13 +66,14 @@ export const GamesListScreen = () => {
     setFilterFavorites,
   } = useGameData()
   const { themed } = useAppTheme()
+  const { t } = useTranslation()
 
   return (
     <>
       <View style={themed($favoritesFilter)}>
         <Text preset="title1" tx={'gamesListScreen:showFavorites'} />
         <Switch
-          accessibilityLabel="Show only favorites"
+          accessibilityLabel={t('gamesListScreen:showFavoritesA11yLabel')}
           on={filterFavorites}
           onToggle={() => setFilterFavorites(!filterFavorites)}
         />
