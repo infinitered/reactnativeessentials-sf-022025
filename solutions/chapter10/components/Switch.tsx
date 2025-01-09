@@ -21,8 +21,7 @@ export const Switch = (props: SwitchProps) => {
       accessible
       accessibilityRole="switch"
       accessibilityState={{ checked: on }}
-      {...accessibilityProps}
-      >
+      {...accessibilityProps}>
       <RNSwitch
         ios_backgroundColor={
           on ? colors.background.accent : colors.background.accentMuted
