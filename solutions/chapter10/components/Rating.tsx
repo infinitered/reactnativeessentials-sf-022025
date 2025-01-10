@@ -20,7 +20,7 @@ export const Rating = ({ rating, ratingsCount }: RatingProps) => {
   const { t } = useTranslation()
 
   return (
-    <View style={$container}>
+    <View accessible style={$container}>
       <Text style={$label} preset="label2">
         <Trans
           i18nKey="gamesListScreen:rating"

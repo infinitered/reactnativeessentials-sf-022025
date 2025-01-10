@@ -6,7 +6,7 @@ import { useAppTheme } from '../services/theme'
 
 interface SwitchProps extends AccessibilityProps {
   on: boolean
-  onToggle: () => void
+  onToggle?: () => void
 }
 
 export const Switch = (props: SwitchProps) => {

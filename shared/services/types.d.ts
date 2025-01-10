@@ -51,7 +51,9 @@ export type SetGames = (games: Array<Game>) => void
 
 export type Favorites = Array<Game['id']>
 
-export type ToggleFavorite = (gameId: Game['id']) => void
+export type ToggleFavorite =
+  | ((gameId: Game['id']) => void)
+  | ((gameId: Game['id'], value?: boolean) => void)
 
 export type Reviews = Record<Game['id'], Array<string>>
 

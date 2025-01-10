@@ -32,14 +32,24 @@ export const GlobalStateProvider = ({ children }: PropsWithChildren) => {
   const [reviews, setReviews] = useState<Reviews>(initReviews)
 
   const toggleFavorite: ToggleFavorite = useCallback(
-    gameId => {
-      let newFavorites: typeof favorites = []
+    (gameId, value) => {
+      const isCurrentlyFavorited = favorites.includes(gameId)
 
-      if (favorites.includes(gameId)) {
-        newFavorites = favorites.filter(id => id !== gameId)
-      } else {
-        newFavorites = [...favorites, gameId]
+      // Determine the new favorite status
+      const shouldBeFavorited =
+        value === undefined
+          ? !isCurrentlyFavorited // Toggle when no value provided
+          : value // Use explicit value when provided
+
+      // Only update if there's a change
+      if (shouldBeFavorited === isCurrentlyFavorited) {
+        return // No change needed
       }
+
+      // Create new favorites array
+      const newFavorites = shouldBeFavorited
+        ? [...favorites, gameId]
+        : favorites.filter(id => id !== gameId)
 
       setFavorites(newFavorites)
       storage.set('favorites', JSON.stringify(newFavorites))

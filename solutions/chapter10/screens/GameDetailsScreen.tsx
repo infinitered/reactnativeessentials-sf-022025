@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Trans } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import type { ImageStyle, TextStyle, ViewStyle } from 'react-native'
 import { Image, ScrollView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -10,6 +10,7 @@ import type { Game, Reviews } from '../../../shared/services/types'
 import { sizes } from '../../../shared/theme'
 import { Button } from '../components/Button'
 import { Empty } from '../components/Empty'
+import { InfoRow } from '../components/InfoRow'
 import { Rating } from '../components/Rating'
 import { Switch } from '../components/Switch'
 import { Text } from '../components/Text'
@@ -26,12 +27,16 @@ interface ReviewsProps {
 
 export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
   const { themed } = useAppTheme()
+  const { t } = useTranslation()
   const { bottom: paddingBottom } = useSafeAreaInsets()
   const gameId = route.params.gameId
   const state = useGlobalState()
   const reviews = gameId ? (state.reviews[gameId] ?? []) : []
 
   const { favorites, toggleFavorite } = useGlobalState()
+  const [isFavorite, setFavorite] = useState(
+    Boolean(favorites.find(favoriteGameId => favoriteGameId === gameId)),
+  )
   const [game, setGame] = useState<Game | undefined>()
 
   const getGame = useCallback(async () => {
@@ -45,6 +50,10 @@ export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
   useEffect(() => {
     getGame()
   }, [getGame])
+
+  useEffect(() => {
+    toggleFavorite(gameId, isFavorite)
+  }, [isFavorite, gameId, toggleFavorite])
 
   const {
     id,
@@ -80,10 +89,9 @@ export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
             tx={'gameDetailsScreen:addToFavorites'}
           />
           <Switch
-            on={Boolean(
-              favorites.find(favoriteGameId => favoriteGameId === id),
-            )}
-            onToggle={() => toggleFavorite(id)}
+            on={isFavorite}
+            onToggle={() => setFavorite(!isFavorite)}
+            accessibilityLabel={t('gameDetailsScreen:addToFavorites')}
           />
         </View>
       )}
@@ -107,32 +115,24 @@ export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
         ) : (
           <>
             <View style={$informationWrapper}>
-              <View style={$informationRow}>
-                <Text preset="label2" tx={'gameDetailsScreen:released'} />
-                {releaseDate?.date && (
-                  <Text
-                    preset="title2"
-                    text={epochToFormattedDate(releaseDate.date)}
-                    style={$informationValue}
-                  />
-                )}
-              </View>
-              <View style={$informationRow}>
-                <Text preset="label2" tx={'gameDetailsScreen:genre'} />
-                <Text
-                  preset="title2"
-                  text={genres?.map(g => g.name).join(', ')}
-                  style={$informationValue}
-                />
-              </View>
-              <View style={$informationRow}>
-                <Text preset="label2" tx={'gameDetailsScreen:studio'} />
-                <Text
-                  preset="title2"
-                  text={involvedCompanies?.map(c => c.company.name).join(', ')}
-                  style={$informationValue}
-                />
-              </View>
+              <InfoRow
+                labelTx="gameDetailsScreen:released"
+                valueText={
+                  releaseDate?.date
+                    ? epochToFormattedDate(releaseDate.date)
+                    : ''
+                }
+              />
+              <InfoRow
+                labelTx="gameDetailsScreen:genre"
+                valueText={genres?.map(g => g.name).join(', ')}
+              />
+              <InfoRow
+                labelTx="gameDetailsScreen:studio"
+                valueText={involvedCompanies
+                  ?.map(c => c.company.name)
+                  .join(', ')}
+              />
               {!!totalRatingStars && (
                 <Rating
                   ratingsCount={totalRatingCount}
@@ -176,7 +176,11 @@ const Reviews = ({ gameId, reviews }: ReviewsProps) => {
       </View>
 
       {reviews.map((review, index) => (
-        <View key={index} style={themed($reviewWrapper)}>
+        <View
+          key={index}
+          style={themed($reviewWrapper)}
+          accessible
+          accessibilityLabel={`Review ${index + 1}: ${review}`}>
           <Text text={review} style={$rtlText} />
         </View>
       ))}
@@ -206,18 +210,6 @@ const $bodyWrapper: ThemedStyle<ViewStyle> = ({ colors }) => ({
 const $informationWrapper: ViewStyle = {
   paddingVertical: sizes.spacing.md,
   rowGap: sizes.spacing.xs,
-}
-
-const $informationRow: ViewStyle = {
-  flexDirection: isRTL ? 'row-reverse' : 'row',
-  alignItems: 'flex-start',
-  columnGap: sizes.spacing.xs,
-}
-
-const $informationValue: TextStyle = {
-  flex: 1,
-  top: -2,
-  textAlign: isRTL ? 'right' : 'left',
 }
 
 const $descriptionWrapper: ViewStyle = {
