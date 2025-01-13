@@ -11,10 +11,15 @@ import type {
   ToggleFavorite,
 } from '../../../shared/services/types'
 import { safeParse } from '../../../shared/utils/object'
+import NativeLocalStorage from './specs/NativeLocalStorage'
 
 const storage = new MMKV({ id: '@RNEssentials/global/state' })
 
-const initFavorites = safeParse(storage.getString('favorites'), [])
+const NativeStorageKey = 'favorites'
+const initFavorites = safeParse(
+  NativeLocalStorage.getItem(NativeStorageKey) ?? undefined,
+  [],
+)
 const initReviews = safeParse(storage.getString('reviews'), {})
 
 export const GlobalStateContext = createContext<GlobalStateContextData>({
@@ -52,7 +57,7 @@ export const GlobalStateProvider = ({ children }: PropsWithChildren) => {
         : favorites.filter(id => id !== gameId)
 
       setFavorites(newFavorites)
-      storage.set('favorites', JSON.stringify(newFavorites))
+      NativeLocalStorage.setItem(JSON.stringify(newFavorites), NativeStorageKey)
     },
     [favorites, setFavorites],
   )
