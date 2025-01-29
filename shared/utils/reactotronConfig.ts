@@ -1,5 +1,6 @@
 import { MMKV } from 'react-native-mmkv'
 import Reactotron from 'reactotron-react-native'
+import { reactotronRedux } from 'reactotron-redux'
 
 const REACTOTRON_ASYNC_CLIENT_ID = 'REACTOTRON_ASYNC_CLIENT_ID'
 
@@ -20,4 +21,7 @@ Reactotron.configure({
   setClientId,
 })
   .useReactNative()
+  .use(reactotronRedux())
   .connect()
+
+export default Reactotron

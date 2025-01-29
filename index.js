@@ -37,6 +37,7 @@ const appFileRegistry = {
   chapter9: () => require('./solutions/chapter9/App').default,
   chapter10: () => require('./solutions/chapter10/App').default,
   chapter11: () => require('./solutions/chapter11/App').default,
+  chapter12: () => require('./solutions/chapter12/App').default,
 }
 
 const AppMode = appFileRegistry[activeAppMode]()
