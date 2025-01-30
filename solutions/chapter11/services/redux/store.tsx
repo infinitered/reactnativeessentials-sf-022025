@@ -36,20 +36,13 @@ const mmkvStorage: Storage = {
   },
 }
 
-const persistConfig = {
-  key: 'root',
-  version: 1,
-  storage: mmkvStorage,
-  whitelist: ['favorites', 'reviews'],
-}
-
 const persistedFavoritesReducer = persistReducer(
-  { ...persistConfig, key: 'favorites' },
+  { key: 'favorites', version: 1, storage: mmkvStorage },
   favoritesReducer,
 )
 
 const persistedReviewsReducer = persistReducer(
-  { ...persistConfig, key: 'reviews' },
+  { key: 'reviews', version: 1, storage: mmkvStorage },
   reviewsReducer,
 )
 

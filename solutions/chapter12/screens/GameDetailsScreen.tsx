@@ -6,6 +6,7 @@ import { Image, ScrollView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useDispatch, useSelector } from 'react-redux'
 
+import type { Reviews } from '../../../shared/services/types'
 import { sizes } from '../../../shared/theme'
 import { Button } from '../components/Button'
 import { Empty } from '../components/Empty'
@@ -23,7 +24,7 @@ import { useAppTheme } from '../services/theme'
 
 interface ReviewsProps {
   gameId: number
-  reviews: string[]
+  reviews: Reviews[keyof Reviews]
 }
 
 export const GameDetailsScreen = ({ route }: ScreenProps<'GameDetails'>) => {
@@ -247,8 +248,8 @@ const $headerWrapper: ViewStyle = {
   alignItems: 'center',
   flexDirection: isRTL ? 'row-reverse' : 'row',
   paddingVertical: sizes.spacing.md,
-  paddingLeft: isRTL ? 0 : 115 + sizes.spacing.md,
-  paddingRight: isRTL ? 115 + sizes.spacing.md : 0,
+  paddingLeft: isRTL ? 0 : 115 + sizes.spacing.md, // image width + margin
+  paddingRight: isRTL ? 115 + sizes.spacing.md : 0, // image width + margin
   minHeight: 104,
 }
 
