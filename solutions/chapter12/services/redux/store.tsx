@@ -22,34 +22,24 @@ import reviewsReducer from './reviewsSlice'
 const storage = new MMKV({ id: '@RNEssentials/redux/state' })
 
 const mmkvStorage: Storage = {
-  setItem: (key, value) => {
+  setItem: async (key, value) => {
     storage.set(key, value)
-    return Promise.resolve()
   },
-  getItem: key => {
-    const value = storage.getString(key)
-    return Promise.resolve(value)
+  getItem: async key => {
+    return storage.getString(key)
   },
-  removeItem: key => {
+  removeItem: async key => {
     storage.delete(key)
-    return Promise.resolve()
   },
-}
-
-const persistConfig = {
-  key: 'root',
-  version: 1,
-  storage: mmkvStorage,
-  whitelist: ['favorites', 'reviews'],
 }
 
 const persistedFavoritesReducer = persistReducer(
-  { ...persistConfig, key: 'favorites' },
+  { key: 'favorites', version: 1, storage: mmkvStorage },
   favoritesReducer,
 )
 
 const persistedReviewsReducer = persistReducer(
-  { ...persistConfig, key: 'reviews' },
+  { key: 'reviews', version: 1, storage: mmkvStorage },
   reviewsReducer,
 )
 
