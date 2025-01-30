@@ -17,8 +17,9 @@ Table of contents (subject to change):
 7. Internationalize All the Things (Including Right-to-Left)
 8. Accessibility essentials
 9. Native Modules and New Architecture Discussion
-10. Continuing Education Resources
-11. Wrap-up & Q&A
+10. Redux and RTK
+11. Continuing Education Resources
+12. Wrap-up & Q&A
 
 ---
 
