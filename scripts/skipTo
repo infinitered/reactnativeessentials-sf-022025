@@ -1,0 +1,42 @@
+
+#!/bin/bash
+
+# Exit on error
+set -e
+
+if [ $# -ne 1 ]; then
+    echo "Usage: ./switch <chapter_number>"
+    exit 1
+fi
+
+CHAPTER_NUM=$1
+APP_DIR="app"
+CHAPTER_DIR="solutions/chapter${CHAPTER_NUM}"
+
+# Check if chapter directory exists
+if [ ! -d "$CHAPTER_DIR" ]; then
+    echo "Error: Chapter ${CHAPTER_NUM} directory not found"
+    exit 1
+fi
+
+# Prompt for confirmation
+read -p "Are you sure? This will overwrite everything in your app folder (y/n) " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Operation cancelled"
+    exit 1
+fi
+
+# Remove existing app directory contents
+rm -rf "${APP_DIR:?}"/*
+
+# Copy chapter contents to app directory
+cp -r "$CHAPTER_DIR"/* "$APP_DIR/"
+
+# Find and replace import paths
+find "$APP_DIR" -type f -name "*.ts" -o -name "*.tsx" | while read -r file; do
+    # Replace '../../../shared' with '../../shared'
+    sed -i '' 's/\.\.\/\.\.\/\.\.\/shared/\.\.\/\.\.\/shared/g' "$file"
+done
+
+echo "Successfully skipped to chapter ${CHAPTER_NUM}"

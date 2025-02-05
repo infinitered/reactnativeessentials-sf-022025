@@ -68,6 +68,12 @@ yarn start
 - [Android link](./docs/simulators-setup.md#yarn-android)
 - [iOS link](./docs/simulators-setup.md#launching-a-specific-simulator)
 
+5. If you'd like to fast forward your assignment to a specific chapter, run this script (replacing the 8 with the chapter you'd like to skip to). This will copy the contents of the given chapter to your app folder.
+
+```bash
+./scripts/skipTo 8
+```
+
 ## Troubleshooting
 
 If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
