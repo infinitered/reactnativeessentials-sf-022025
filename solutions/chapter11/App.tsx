@@ -16,15 +16,15 @@ const App = (): React.JSX.Element | null => {
   const { themeScheme, ThemeProvider } = useThemeProvider()
 
   return (
-    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <SafeAreaProvider initialMetrics={initialWindowMetrics}>
           <ThemeProvider value={{ themeScheme }}>
             <AppNavigator />
           </ThemeProvider>
-        </PersistGate>
-      </Provider>
-    </SafeAreaProvider>
+        </SafeAreaProvider>
+      </PersistGate>
+    </Provider>
   )
 }
 
