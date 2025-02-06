@@ -18,6 +18,7 @@
 		4EE570C042F840C38C334AD3 /* Oxanium-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6D2468AB29D46298A3D6EEE /* Oxanium-Bold.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-ReactNativeEssentials-ReactNativeEssentialsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-ReactNativeEssentials-ReactNativeEssentialsTests.a */; };
 		BE47852A2B4B527900CD651C /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE4785292B4B527900CD651C /* BootSplash.storyboard */; };
+		DAB927A92D55372E0075C0D9 /* RCTNativeLocalStorage.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAB927A82D55372E0075C0D9 /* RCTNativeLocalStorage.mm */; };
 		E591E2D9F30949DF8EAA5600 /* Oxanium-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B36FD2681F64AC98A4665C3 /* Oxanium-Regular.ttf */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,8 @@
 		89C6BE57DB24E9ADA2F236DE /* Pods-ReactNativeEssentials-ReactNativeEssentialsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReactNativeEssentials-ReactNativeEssentialsTests.release.xcconfig"; path = "Target Support Files/Pods-ReactNativeEssentials-ReactNativeEssentialsTests/Pods-ReactNativeEssentials-ReactNativeEssentialsTests.release.xcconfig"; sourceTree = "<group>"; };
 		BE4785292B4B527900CD651C /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = ReactNativeEssentials/BootSplash.storyboard; sourceTree = "<group>"; };
 		D6D2468AB29D46298A3D6EEE /* Oxanium-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Oxanium-Bold.ttf"; path = "../shared/assets/fonts/Oxanium-Bold.ttf"; sourceTree = "<group>"; };
+		DAB927A72D55372E0075C0D9 /* RCTNativeLocalStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTNativeLocalStorage.h; sourceTree = "<group>"; };
+		DAB927A82D55372E0075C0D9 /* RCTNativeLocalStorage.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RCTNativeLocalStorage.mm; sourceTree = "<group>"; };
 		EAD29E99093D4DD3BF92E801 /* Oxanium-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Oxanium-Medium.ttf"; path = "../shared/assets/fonts/Oxanium-Medium.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -127,6 +130,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				DAB927A62D55368B0075C0D9 /* NativeLocalStorage */,
 				13B07FAE1A68108700A75B9A /* ReactNativeEssentials */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* ReactNativeEssentialsTests */,
@@ -158,6 +162,15 @@
 				89C6BE57DB24E9ADA2F236DE /* Pods-ReactNativeEssentials-ReactNativeEssentialsTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		DAB927A62D55368B0075C0D9 /* NativeLocalStorage */ = {
+			isa = PBXGroup;
+			children = (
+				DAB927A72D55372E0075C0D9 /* RCTNativeLocalStorage.h */,
+				DAB927A82D55372E0075C0D9 /* RCTNativeLocalStorage.mm */,
+			);
+			path = NativeLocalStorage;
 			sourceTree = "<group>";
 		};
 		DC2AD07125364F54B5CCE10C /* Resources */ = {
@@ -422,6 +435,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				DAB927A92D55372E0075C0D9 /* RCTNativeLocalStorage.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,7 +507,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L7YNDPLSEB;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ReactNativeEssentials/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -508,6 +525,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = red.infinite.reactnativeessentials;
 				PRODUCT_NAME = ReactNativeEssentials;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -520,7 +538,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L7YNDPLSEB;
 				INFOPLIST_FILE = ReactNativeEssentials/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -534,6 +555,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = red.infinite.reactnativeessentials;
 				PRODUCT_NAME = ReactNativeEssentials;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

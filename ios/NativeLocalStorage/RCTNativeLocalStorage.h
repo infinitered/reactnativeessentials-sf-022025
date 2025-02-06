@@ -2,14 +2,15 @@
 //  RCTNativeLocalStorage.h
 //  ReactNativeEssentials
 //
-//  Created by Mazen Chami on 1/13/25.
+//  Created by Mazen Chami (IR) on 2/6/25.
 //
 
 #import <Foundation/Foundation.h>
+#import <NativeLocalStorageSpec/NativeLocalStorageSpec.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RCTNativeLocalStorage : NSObject
+@interface RCTNativeLocalStorage : NSObject <NativeLocalStorageSpec>
 
 @end
 

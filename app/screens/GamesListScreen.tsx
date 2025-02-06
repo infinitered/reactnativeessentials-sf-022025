@@ -1,47 +1,127 @@
-import React from 'react'
-import type { TextStyle, ViewStyle } from 'react-native'
-import { View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import type { ViewStyle } from 'react-native'
+import { SectionList, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { colors, sizes } from '../../shared/theme'
+import { api } from '../../shared/services/api'
+import type { Game } from '../../shared/services/types'
+import { sizes } from '../../shared/theme'
+import { Card } from '../components/Card'
+import { Empty } from '../components/Empty'
+import { Pill } from '../components/Pill'
+import { Switch } from '../components/Switch'
 import { Text } from '../components/Text'
+import { isRTL, useTranslation } from '../services/i18n'
+import { useGlobalState } from '../services/state'
+import type { ThemedStyle } from '../services/theme'
+import { useAppTheme } from '../services/theme'
+
+function useGameData() {
+  const { favorites, games, setGames } = useGlobalState()
+  const [filterFavorites, setFilterFavorites] = useState(false)
+
+  const getGames = useCallback(async () => {
+    const response = await api.getGames()
+
+    if (response.ok) {
+      setGames(response.data)
+    }
+  }, [setGames])
+
+  useEffect(() => {
+    getGames()
+  }, [getGames])
+
+  const gamesSectionList = useMemo(() => {
+    const initialValue: { [k: number]: Game[] } = {}
+    const gameListMap = games.reduce((acc, curr) => {
+      if (filterFavorites && !favorites.includes(curr.id)) return acc
+
+      const year = curr.releaseDate.y
+      if (acc[year]) {
+        acc[year].push(curr)
+      } else {
+        acc[year] = [curr]
+      }
+      return acc
+    }, initialValue)
+
+    return Object.entries(gameListMap).map(([k, v]) => ({
+      year: k,
+      key: k,
+      data: v,
+    }))
+  }, [games, favorites, filterFavorites])
+
+  return { gamesSectionList, filterFavorites, setFilterFavorites }
+}
 
 export const GamesListScreen = () => {
+  const { bottom: paddingBottom } = useSafeAreaInsets()
+  const navigation = useNavigation()
+  const {
+    gamesSectionList: games,
+    filterFavorites,
+    setFilterFavorites,
+  } = useGameData()
+  const { themed } = useAppTheme()
+  const { t } = useTranslation()
+
   return (
-    <View style={$screen}>
-      <View style={$welcomeContainer}>
-        <Text style={$welcomeSmall}>Welcome To:</Text>
-        <Text style={$welcomeLarge}>React Native{`\n`}Essentials!</Text>
+    <>
+      <View style={themed($favoritesFilter)}>
+        <Text preset="title1" tx={'gamesListScreen:showFavorites'} />
+        <Switch
+          accessibilityLabel={t('gamesListScreen:showFavoritesA11yLabel')}
+          on={filterFavorites}
+          onToggle={() => setFilterFavorites(!filterFavorites)}
+        />
       </View>
-      <Text style={$screenInfo}>./app/screens/GamesListScreen.tsx</Text>
-    </View>
+      <SectionList
+        sections={games}
+        style={themed($list)}
+        keyExtractor={item => String(item.id)}
+        contentContainerStyle={[{ paddingBottom }, $contentContainer]}
+        ListEmptyComponent={<Empty />}
+        initialNumToRender={6}
+        maxToRenderPerBatch={20}
+        windowSize={31}
+        renderItem={({ item }) => (
+          <Card
+            onPress={() => {
+              navigation.navigate('GameDetails', {
+                gameId: item.id,
+                name: item.name,
+              })
+            }}
+            name={item.name}
+            rating={item.totalRatingStars}
+            releaseDate={item.releaseDate.date}
+            imageUrl={item.cover.imageUrl}
+          />
+        )}
+        renderSectionHeader={({ section: { year } }) => <Pill text={year} />}
+      />
+    </>
   )
 }
 
-const $screen: ViewStyle = {
-  flex: 1,
+const $list: ThemedStyle<ViewStyle> = ({ colors }) => ({
   backgroundColor: colors.background.primary,
-  paddingHorizontal: sizes.spacing.md,
-  justifyContent: 'space-between',
-}
+})
 
-const $welcomeContainer: ViewStyle = {
+const $contentContainer: ViewStyle = {
   rowGap: sizes.spacing.lg,
-  flexGrow: 1,
-  justifyContent: 'center',
+  padding: sizes.spacing.md,
 }
 
-const $welcomeSmall: TextStyle = {
-  fontSize: 18,
-  color: 'black',
-}
-
-const $welcomeLarge: TextStyle = {
-  fontSize: 48,
-  color: 'black',
-}
-
-const $screenInfo: TextStyle = {
-  fontSize: 12,
-  opacity: 0.5,
-  color: 'black',
-}
+const $favoritesFilter: ThemedStyle<ViewStyle> = ({ colors }) => ({
+  flexDirection: isRTL ? 'row-reverse' : 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: sizes.spacing.md,
+  borderBottomColor: colors.border.base,
+  borderBottomWidth: 2,
+  backgroundColor: colors.background.secondary,
+})

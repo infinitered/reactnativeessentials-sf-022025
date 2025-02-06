@@ -1,0 +1,16 @@
+# sample.yaml
+# ...
+
+appId: red.infinite.reactnativeessentials
+---
+- launchApp
+- startRecording
+- assertVisible: Retro Games
+# - tapOn: Show Only Favorites
+# - scrollUntilVisible:
+#     element:
+#       text: Super Mario Bros.
+- tapOn:
+    id: Ms. Pac-Man
+- assertVisible: Ms. Pac-Man
+- stopRecording

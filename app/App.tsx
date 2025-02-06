@@ -1,15 +1,25 @@
+import './services/i18n'
+
 import React from 'react'
 import {
   initialWindowMetrics,
   SafeAreaProvider,
 } from 'react-native-safe-area-context'
 
-import { GamesListScreen } from './screens/GamesListScreen'
+import { AppNavigator } from './navigators/AppNavigator'
+import { GlobalStateProvider } from './services/state'
+import { useThemeProvider } from './services/theme'
 
 const App = (): React.JSX.Element | null => {
+  const { themeScheme, ThemeProvider } = useThemeProvider()
+
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <GamesListScreen />
+      <GlobalStateProvider>
+        <ThemeProvider value={{ themeScheme }}>
+          <AppNavigator />
+        </ThemeProvider>
+      </GlobalStateProvider>
     </SafeAreaProvider>
   )
 }
