@@ -27,6 +27,7 @@ Table of contents (subject to change):
   <summary><strong>Table of Contents</strong></summary>
 
 - React Native Essentials
+  - [Chapter Docs](./docs/chapters/chapter01.md)
   - [Quick Start](#quick-start)
   - [Troubleshooting](#troubleshooting)
   - [Learn More](#learn-more)
