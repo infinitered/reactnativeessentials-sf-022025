@@ -23,7 +23,7 @@ Table of contents (subject to change):
 
 ---
 
-<details open>****
+<details open>
   <summary><strong>Table of Contents</strong></summary>
 
 - React Native Essentials
