@@ -277,3 +277,7 @@ Search for all instances of `import { colors, fonts, sizes } from '../../shared/
 - <View style={$card}>
 + <View style={themed($card)}>
 ```
+
+---
+
+[Previous: Chapter 7](./chapter07.md) | [Next: Chapter 9](./chapter09.md)

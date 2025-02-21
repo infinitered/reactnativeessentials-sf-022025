@@ -470,3 +470,7 @@ Then run reactotron and inspect your slices
 https://redux.js.org/tutorials/essentials/part-1-overview-concepts (top down)
 https://redux.js.org/tutorials/fundamentals/part-1-overview (bottom up)
 https://www.learnwithjason.dev/let-s-learn-modern-redux
+
+---
+
+[Previous: Chapter 10](./chapter10.md) | [Next: Chapter 12](./chapter12.md)

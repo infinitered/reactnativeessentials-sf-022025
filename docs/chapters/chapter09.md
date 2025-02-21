@@ -235,3 +235,7 @@ And use it in the `Card` component:
   }
 />
 ```
+
+---
+
+[Previous: Chapter 8](./chapter08.md) | [Next: Chapter 10](./chapter10.md)

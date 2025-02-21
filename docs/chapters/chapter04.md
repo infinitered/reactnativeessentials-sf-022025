@@ -154,3 +154,7 @@ If you finish early, add a loading state to the `GameDetailsScreen` component.
   !game ? <Empty text={'Loading\nPlease Wait...'} icon="loader" /> : <>...</>
 }
 ```
+
+---
+
+[Previous: Chapter 3](./chapter03.md) | [Next: Chapter 5](./chapter05.md)

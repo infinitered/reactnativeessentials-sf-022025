@@ -100,3 +100,7 @@ const $text: TextStyle = {
   color: colors.text.brand,
 }
 ```
+
+---
+
+[Previous: Chapter 4](./chapter04.md) | [Next: Chapter 6](./chapter06.md)

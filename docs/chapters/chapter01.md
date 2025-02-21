@@ -150,3 +150,7 @@ Icon component to be used in the `Card` component as stars. Let's not forget to 
 ### 7. Create a `Text` component
 
 Reusable `Text` component to be used in the `Card` component.
+
+---
+
+[Next: Chapter 2](./chapter02.md)

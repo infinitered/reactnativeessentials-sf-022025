@@ -195,3 +195,7 @@ function renderIconButton(props: IconProps & { onPress?: () => void }) {
   )
 }
 ```
+
+---
+
+[Previous: Chapter 1](./chapter01.md) | [Next: Chapter 3](./chapter03.md)

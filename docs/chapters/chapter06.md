@@ -371,3 +371,7 @@ const AppStack = () => {
   onPress={() => navigation.navigate('Review', { gameId })}
 />
 ```
+
+---
+
+[Previous: Chapter 5](./chapter05.md) | [Next: Chapter 7](./chapter07.md)

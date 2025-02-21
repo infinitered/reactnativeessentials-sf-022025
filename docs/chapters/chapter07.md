@@ -184,3 +184,7 @@ const $favoriteLabel: TextStyle = {
   textShadowRadius: 1,
 }
 ```
+
+---
+
+[Previous: Chapter 6](./chapter06.md) | [Next: Chapter 8](./chapter08.md)

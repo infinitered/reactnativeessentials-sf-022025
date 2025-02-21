@@ -20,3 +20,7 @@ This section is a self-guided DIY to test out your skills. Reference `./solution
 ### Extra credit ideas if you finish early
 
 If you finish early, add image carousel for `screenshots` in the `GameDetailsScreen`.
+
+---
+
+[Previous: Chapter 2](./chapter02.md) | [Next: Chapter 4](./chapter04.md)

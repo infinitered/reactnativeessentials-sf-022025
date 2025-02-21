@@ -188,3 +188,7 @@ Now add the label text via the list screen:
            onToggle={() => setFilterFavorites(!filterFavorites)}
          />
 ```
+
+---
+
+[Previous: Chapter 9](./chapter09.md) | [Next: Chapter 11](./chapter11.md)
