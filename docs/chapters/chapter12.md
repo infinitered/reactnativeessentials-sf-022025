@@ -1,6 +1,6 @@
 ### Chapter 12
 
-Run `./scripts/skipTo 10` to copy the solution to your main app. Otherwise you may code along. Reference `./solutions/chapter10` if you get stuck. (yes we want to move to chapter 10, not 11 due to some complexity that redux introduces for the purposes of this course)
+Run `./scripts/skipTo 10` to reset your app to chapter 10 (yes we want to move to chapter 10, not 11 due to some complexity that redux introduces for the purposes of this course). Then you can code along with this guide. There is not currently a solution folder for this chapter.
 
 # Chapter 12: Native Modules
 
